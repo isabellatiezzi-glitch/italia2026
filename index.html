@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tiezzi in Toscana — Roteiro Itália, Out/2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,480;0,9..144,600;1,9..144,440;1,9..144,560&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+  :root{
+    --bg:#EDE4CE; --bg-alt:#E2D6B7; --panel:#F7F1E1; --ink:#241F19; --ink-soft:#5B5347;
+    --sienna:#9C4A24; --sienna-deep:#7A3A1B; --cypress:#2F4A3C; --cypress-deep:#1E3129;
+    --navy:#242F42; --ochre:#B78A34; --wine:#6E2A2A; --teal:#3B6A6D;
+    --line: rgba(36,31,25,0.14); --shadow: 0 12px 28px rgba(36,31,25,0.14);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:'Work Sans', sans-serif; font-size:16px; line-height:1.5; overflow-x:hidden; -webkit-text-size-adjust:100%;}
+  ::selection{background:var(--ochre); color:#fff;}
+  h1,h2,h3,h4{font-family:'Fraunces', serif; margin:0; font-weight:600; letter-spacing:-0.01em;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  a{color:inherit;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+
+  header.topbar{position:sticky; top:0; z-index:1050; background:rgba(237,228,206,0.92); backdrop-filter:blur(6px); border-bottom:1px solid var(--line);}
+  .topbar-inner{max-width:1180px; margin:0 auto; padding:14px 28px; display:flex; align-items:center; justify-content:space-between; gap:16px;}
+  .brand{display:flex; align-items:baseline; gap:10px;}
+  .brand .mark{font-family:'Fraunces', serif; font-style:italic; font-weight:600; font-size:20px; color:var(--sienna-deep);}
+  .brand .sub{font-family:'IBM Plex Mono'; font-size:11px; letter-spacing:0.08em; color:var(--ink-soft); text-transform:uppercase;}
+  .topbar-right{display:flex; align-items:center; gap:22px;}
+  nav.links{display:flex; gap:24px; font-size:13.5px; font-weight:500;}
+  nav.links a, nav.links button{text-decoration:none; color:var(--ink-soft); border-bottom:1px solid transparent; padding-bottom:2px; transition:.2s; background:none; border-top:none; border-left:none; border-right:none; font-family:inherit; font-size:inherit; cursor:pointer;}
+  nav.links a:hover, nav.links button:hover{color:var(--sienna-deep); border-color:var(--sienna-deep);}
+  nav.links .nav-date-select{
+    text-decoration:none; color:var(--ink-soft); border:none; border-bottom:1px solid transparent; padding:0 0 2px;
+    transition:.2s; background:none; font-family:inherit; font-size:inherit; cursor:pointer; appearance:auto;
+  }
+  nav.links .nav-date-select:hover{color:var(--sienna-deep); border-color:var(--sienna-deep);}
+  .day-row.flash-highlight{animation:flashHighlight 1.6s ease;}
+  @keyframes flashHighlight{
+    0%{background:var(--ochre); border-radius:6px;}
+    100%{background:transparent;}
+  }
+  .menu-btn{
+    width:40px; height:40px; border-radius:6px; border:1px solid var(--ink); background:var(--panel);
+    cursor:pointer; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:4px;
+  }
+  .menu-btn span{width:18px; height:2px; background:var(--ink); display:block;}
+  .menu-btn:hover{background:var(--bg-alt);}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative; overflow:hidden; padding:86px 0 64px; border-bottom:1px solid var(--line);}
+  .hero .wrap{position:relative; z-index:2;}
+  .hero .eyebrow{font-family:'IBM Plex Mono'; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--cypress-deep); margin-bottom:18px; display:flex; gap:10px; align-items:center;}
+  .hero .eyebrow::before{content:""; width:34px; height:1px; background:var(--cypress-deep); display:inline-block;}
+  .hero h1{font-size:clamp(38px,6vw,74px); font-style:italic; font-weight:560; line-height:1.03; max-width:820px;}
+  .hero h1 em{color:var(--sienna); font-style:italic;}
+  .hero p.lede{max-width:560px; margin-top:22px; font-size:17px; color:var(--ink-soft);}
+  .hero .who{margin-top:34px; display:flex; gap:10px; flex-wrap:wrap;}
+  .who .chip{font-family:'IBM Plex Mono'; font-size:12px; padding:6px 12px; border:1px solid var(--ink); border-radius:20px; background:var(--panel); cursor:pointer; transition:.18s;}
+  .who .chip:hover{background:var(--ink); color:var(--panel);}
+
+  section{padding:74px 0;}
+  .section-head{margin-bottom:38px; max-width:660px;}
+  .section-head .num{font-family:'IBM Plex Mono'; font-size:12px; color:var(--sienna-deep); letter-spacing:0.1em; text-transform:uppercase;}
+  .section-head h2{font-size:clamp(28px,4vw,40px); margin-top:8px;}
+  .section-head p{color:var(--ink-soft); margin-top:10px; font-size:15px;}
+
+  /* ---------- LOGISTICA ---------- */
+  .logi-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px;}
+  @media(max-width:980px){.logi-grid{grid-template-columns:repeat(2,1fr);}}
+  .logi-card{background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:20px; display:flex; flex-direction:column; gap:8px; box-shadow:var(--shadow);}
+  .logi-card .tag{font-family:'IBM Plex Mono'; font-size:10.5px; text-transform:uppercase; letter-spacing:0.08em; color:#fff; background:var(--cypress); align-self:flex-start; padding:3px 9px; border-radius:3px;}
+  .logi-card .tag.rome{background:var(--navy);}
+  .logi-card h4{font-size:18px; font-style:italic;}
+  .logi-card .detail{font-size:13.5px; color:var(--ink-soft);}
+  .logi-card .flight-leg{display:flex; justify-content:space-between; font-family:'IBM Plex Mono'; font-size:12.5px; padding:6px 0; border-top:1px dashed var(--line);}
+  .logi-card .status{font-family:'IBM Plex Mono'; font-size:11px; color:var(--cypress-deep); margin-top:4px;}
+
+  /* ---------- ROTEIRO / MAP ---------- */
+  .option-tabs{display:flex; gap:10px; margin-bottom:26px; flex-wrap:wrap;}
+  .option-tab{font-family:'IBM Plex Mono'; font-size:13px; cursor:pointer; user-select:none; padding:10px 16px; border:1px solid var(--ink); border-radius:3px; background:transparent; display:flex; flex-direction:column; gap:2px; min-width:150px; transition:.18s;}
+  .option-tab .letter{font-family:'Fraunces'; font-style:italic; font-size:20px; font-weight:600;}
+  .option-tab .name{font-size:11.5px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.04em;}
+  .option-tab:hover{background:var(--bg-alt);}
+  .option-tab.active{background:var(--ink); color:var(--panel); border-color:var(--ink);}
+  .option-tab.active .name{color:var(--bg-alt);}
+  .option-tab.active .letter{color:var(--ochre);}
+
+  .roteiro-grid{display:flex; flex-direction:column; gap:26px;}
+  .map-card{background:var(--panel); border:1px solid var(--line); border-radius:8px; box-shadow:var(--shadow); padding:14px; position:relative;}
+  .map-stage{position:relative;}
+  #leaflet-map{width:100%; height:640px; border-radius:4px; background:#E7DEC2; font-family:'Work Sans', sans-serif;}
+  @media(max-width:640px){ #leaflet-map{height:440px;} }
+  .jump-controls{position:absolute; top:14px; left:14px; z-index:900; max-width:60%;}
+  .jump-controls select{
+    font-family:'IBM Plex Mono'; font-size:16px; padding:8px 10px; border-radius:20px; border:1px solid var(--ink);
+    background:var(--panel); cursor:pointer; box-shadow:var(--shadow); max-width:100%;
+  }
+  .jump-controls select:hover{background:var(--bg-alt);}
+  .map-hint{font-family:'IBM Plex Mono'; font-size:10.5px; color:var(--ink-soft); text-align:center; margin-top:8px; opacity:.75;}
+  .legend{display:flex; gap:14px; flex-wrap:wrap; padding:12px 6px 2px; font-size:11.5px; color:var(--ink-soft);}
+  .legend span{display:inline-flex; align-items:center; gap:6px;}
+  .legend i{width:9px; height:9px; border-radius:50%; display:inline-block;}
+
+  .map-marker{border-radius:50%; border:1.6px solid #fff; box-shadow:0 1px 4px rgba(0,0,0,.35); cursor:pointer;}
+  .map-marker.dim{opacity:.3;}
+  .map-marker.active{border-color:var(--ink); border-width:2px;}
+  .map-label{
+    font-family:'IBM Plex Mono'!important; font-size:10.5px!important; background:var(--panel)!important;
+    border:1px solid var(--line)!important; color:var(--ink)!important; padding:1px 6px!important; box-shadow:none!important;
+  }
+  .map-label::before{display:none!important;}
+  .leaflet-popup-content-wrapper{background:var(--panel); color:var(--ink); border-radius:6px; font-family:'Work Sans', sans-serif;}
+  .leaflet-popup-content{font-size:13px; margin:10px 12px;}
+  .leaflet-popup-tip{background:var(--panel);}
+
+  .side-panel{background:var(--panel); border:1px solid var(--line); border-radius:8px; box-shadow:var(--shadow); padding:26px 30px;}
+  .side-panel h3{font-size:20px; font-style:italic; margin-bottom:4px;}
+  .side-panel .opt-desc{font-size:13px; color:var(--ink-soft); margin-bottom:18px; padding-bottom:14px; border-bottom:1px solid var(--line);}
+  .day-row{padding:14px 0; border-bottom:1px dashed var(--line);}
+  .day-row:last-child{border-bottom:none;}
+  .day-row .d-num{font-family:'IBM Plex Mono'; font-size:11px; color:var(--sienna-deep); letter-spacing:0.06em;}
+  .day-row h5{font-size:15.5px; font-weight:600; font-family:'Work Sans'; margin:3px 0 8px;}
+  .day-times{
+    display:inline-block; font-family:'IBM Plex Mono'; font-size:11.5px; color:var(--cypress-deep);
+    background:var(--bg-alt); padding:4px 10px; border-radius:20px; margin:0 6px 8px 0;
+  }
+  .day-times b{color:var(--sienna-deep);}
+  .day-times.comfy{color:var(--teal); background:#e4ecec;}
+  .day-times.comfy b{color:var(--teal);}
+  .periods{display:grid; grid-template-columns:repeat(3,1fr); gap:8px;}
+  @media(max-width:640px){.periods{grid-template-columns:1fr;}}
+  .period{background:var(--bg-alt); border-radius:6px; padding:8px 10px;}
+  .period .label{font-family:'IBM Plex Mono'; font-size:9.5px; text-transform:uppercase; color:var(--sienna-deep); letter-spacing:0.06em;}
+  .period p{font-size:12.2px; margin:4px 0 0; color:var(--ink-soft);}
+  .back-link{font-family:'IBM Plex Mono'; font-size:12px; color:var(--sienna-deep); cursor:pointer; display:inline-flex; gap:6px; align-items:center; margin-bottom:14px;}
+  .loc-detail .cat-badge{display:inline-block; font-family:'IBM Plex Mono'; font-size:10.5px; text-transform:uppercase; padding:3px 9px; border-radius:3px; color:#fff; margin-bottom:10px;}
+  .loc-detail .blurb{font-size:13.8px; color:var(--ink-soft); margin-bottom:16px;}
+  .loc-entry{padding:10px 0; border-top:1px solid var(--line);}
+  .loc-entry .opt-tag{font-family:'IBM Plex Mono'; font-size:11px; color:var(--sienna-deep);}
+  .loc-entry p{font-size:13.2px; margin:4px 0 0; color:var(--ink-soft);}
+  .hint{font-size:12px; color:var(--ink-soft); font-style:italic; margin-top:10px;}
+  .zoom-into{margin-top:14px; font-family:'IBM Plex Mono'; font-size:12px; padding:8px 14px; border-radius:20px; border:1px solid var(--ink); background:transparent; cursor:pointer;}
+  .zoom-into:hover{background:var(--bg-alt);}
+
+  /* ---------- ORCAMENTO ---------- */
+  .cost-table{width:100%; border-collapse:collapse; font-size:13.6px; background:var(--panel); border-radius:8px; overflow:hidden; box-shadow:var(--shadow);}
+  .cost-table th, .cost-table td{padding:12px 16px; text-align:left; border-bottom:1px solid var(--line);}
+  .cost-table th{font-family:'IBM Plex Mono'; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-soft); background:var(--bg-alt);}
+  .cost-table td.num, .cost-table th.num{text-align:right; font-family:'IBM Plex Mono';}
+  .cost-table tr:last-child td{border-bottom:none; font-weight:600; background:var(--bg-alt);}
+  .notes-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:22px;}
+  @media(max-width:780px){.notes-grid{grid-template-columns:1fr;}}
+  .note-card{background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:16px 18px; font-size:13.4px; color:var(--ink-soft); box-shadow:var(--shadow);}
+  .note-card b{color:var(--ink);}
+
+  footer{padding:38px 0 50px; text-align:center; font-family:'IBM Plex Mono'; font-size:11.5px; color:var(--ink-soft); border-top:1px solid var(--line); margin-top:20px;}
+
+  /* ---------- SIDEBAR ---------- */
+  .overlay{position:fixed; inset:0; background:rgba(20,18,14,.4); opacity:0; pointer-events:none; transition:.3s; z-index:1100;}
+  .overlay.show{opacity:1; pointer-events:auto;}
+  .sidebar{
+    position:fixed; top:0; right:0; height:100vh; height:100dvh; width:420px; max-width:92vw; background:var(--panel);
+    box-shadow:-14px 0 34px rgba(20,18,14,.3); transform:translateX(105%); transition:transform .38s ease;
+    z-index:1200; overflow-y:auto; -webkit-overflow-scrolling:touch; display:flex; flex-direction:column;
+  }
+  .sidebar.open{transform:translateX(0);}
+  .sidebar-head{position:sticky; top:0; background:var(--panel); display:flex; align-items:center; justify-content:space-between; padding:20px 22px; border-bottom:1px solid var(--line); z-index:2;}
+  .sidebar-head h3{font-size:19px; font-style:italic;}
+  .sidebar-head button{width:40px; height:40px; border-radius:6px; border:1px solid var(--ink); background:transparent; cursor:pointer; font-size:16px;}
+  .sidebar-head button:hover{background:var(--bg-alt);}
+  .sidebar-body{padding:16px 22px 40px;}
+  .sidebar-body .group-label{font-family:'IBM Plex Mono'; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--sienna-deep); margin:18px 0 8px;}
+  .acc-item{border:1px solid var(--line); border-radius:6px; margin-bottom:10px; overflow:hidden; background:#fff8;}
+  .acc-header{
+    width:100%; text-align:left; background:var(--bg-alt); border:none; padding:14px 16px; cursor:pointer;
+    display:flex; align-items:center; justify-content:space-between; font-family:'Work Sans'; font-weight:600; font-size:15px;
+  }
+  .acc-header .init{width:30px; height:30px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-family:'Fraunces'; font-style:italic; color:#fff; font-size:14px; margin-right:10px;}
+  .acc-header-left{display:flex; align-items:center;}
+  .acc-header .chevron{font-family:'IBM Plex Mono'; transition:.2s; font-weight:400;}
+  .acc-item.open .acc-header .chevron{transform:rotate(90deg);}
+  .acc-content{display:none; padding:16px; font-size:13.4px; color:var(--ink-soft);}
+  .acc-item.open .acc-content{display:block;}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px;}
+  .tags span{font-size:11px; font-family:'IBM Plex Mono'; padding:3px 8px; background:var(--bg-alt); border-radius:3px; color:var(--ink-soft);}
+  .fav-title, .budget-title, .sub-title{font-family:'IBM Plex Mono'; font-size:10.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--sienna-deep); margin-top:10px;}
+  .acc-content ul{margin:6px 0 0; padding-left:16px;}
+  .acc-content ul li{margin-bottom:4px;}
+  .budget-bar{background:var(--bg-alt); border-radius:20px; height:7px; overflow:hidden; margin-top:6px;}
+  .budget-bar > div{height:100%; background:var(--sienna);}
+  .budget-list{font-size:12.4px; margin-top:8px;}
+  .budget-list .row{display:flex; justify-content:space-between; padding:3px 0; border-bottom:1px dotted var(--line);}
+  .budget-total{display:flex; justify-content:space-between; font-family:'IBM Plex Mono'; font-size:13.5px; margin-top:8px; padding-top:8px; border-top:1px solid var(--ink); font-weight:600; color:var(--ink);}
+  .info-sub{margin-top:14px; overflow-x:auto; -webkit-overflow-scrolling:touch;}
+  .info-sub table{width:100%; min-width:340px; border-collapse:collapse; font-size:12px; margin-top:6px;}
+  .info-sub th,.info-sub td{padding:6px 8px; border-bottom:1px solid var(--line); text-align:left;}
+  .info-sub th{font-family:'IBM Plex Mono'; font-size:10px; text-transform:uppercase; color:var(--ink-soft); background:var(--bg-alt);}
+  .info-sub td.num{text-align:right; font-family:'IBM Plex Mono';}
+  .clean-list{list-style:none; margin:8px 0 0; padding:0; display:flex; flex-direction:column; gap:7px;}
+  .clean-list li{position:relative; padding-left:16px; font-size:12.6px; color:var(--ink-soft); line-height:1.45;}
+  .clean-list li::before{content:"—"; position:absolute; left:0; color:var(--sienna-deep);}
+  .clean-list li b{color:var(--ink);}
+
+  @media(max-width:640px){
+    .topbar-inner{flex-wrap:wrap; gap:10px; padding:12px 16px;}
+    .brand{order:1;}
+    .menu-btn{order:2;}
+    nav.links{
+      order:3; width:100%; display:flex; gap:8px; font-size:12px;
+      overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:2px;
+    }
+    nav.links a, nav.links button, nav.links .nav-date-select{
+      white-space:nowrap; flex-shrink:0; padding:6px 10px; border:1px solid var(--line); border-radius:16px;
+      background:var(--bg-alt);
+    }
+    .hero{padding:48px 0 36px;}
+    .wrap{padding:0 18px;}
+    section{padding:48px 0;}
+    .hero h1{font-size:clamp(30px,8vw,44px);}
+    .hero p.lede{font-size:15.5px;}
+    .jump-controls{max-width:100%; left:10px; top:10px;}
+    #leaflet-map{height:380px;}
+    .option-tabs{gap:8px;}
+    .option-tab{min-width:0; flex:1 1 40%; padding:9px 12px;}
+    .side-panel{padding:18px 16px;}
+    .day-row h5{font-size:14.5px;}
+    .sidebar{width:100%; max-width:100%;}
+    .sidebar-body{padding:14px 16px 40px;}
+    .logi-grid{grid-template-columns:1fr;}
+    .fam-grid{grid-template-columns:1fr;}
+    table{font-size:12px;}
+  }
+  @media(max-width:400px){
+    .hero h1{font-size:clamp(26px,9vw,36px);}
+    .option-tab{flex:1 1 100%;}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="mark">Tiezzi in Toscana</span><span class="sub">Out 2026</span></div>
+    <div class="topbar-right">
+      <nav class="links">
+        <button id="nav-open-voo" type="button">Voo &amp; Estadia</button>
+        <button id="nav-open-mala" type="button">O que levar na mala</button>
+        <button id="nav-open-dicas" type="button">Dicas práticas de viagem</button>
+        <button id="nav-open-deslocamentos" type="button">Deslocamentos</button>
+        <select id="nav-date-select" class="nav-date-select" aria-label="Ir para uma data do roteiro">
+          <option value="" disabled selected>Datas</option>
+        </select>
+      </nav>
+      <button class="menu-btn" id="menu-btn" aria-label="Abrir painel de passageiros"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">08 — 18 outubro 2026 · roma · toscana</div>
+    <h1>Dieci giorni tra <em>colline toscane</em><br>e le strade di Roma.</h1>
+    <p class="lede">Um roteiro com quatro caminhos possíveis pela Toscana e Roma — escolha uma opção, veja o trajeto se traçar no mapa e o que cada dia reserva pela manhã, tarde e noite.</p>
+    <div class="who">
+      <button class="chip" type="button" data-person="ricardo">Ricardo Tiezzi</button>
+      <button class="chip" type="button" data-person="erika">Erika Nobre Tiezzi</button>
+      <button class="chip" type="button" data-person="isabella">Isabella Nobre Tiezzi</button>
+      <button class="chip" type="button" data-person="thiago">Thiago Campanille Reis</button>
+    </div>
+  </div>
+</section>
+
+<section id="roteiro">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="num">01 · escolha um caminho</div>
+      <h2>O roteiro, em quatro versões</h2>
+      <p><b>A</b> é o plano principal, já com os ingressos comprados. <b>B, C</b> e <b>D</b> ficam de reserva para caso o tempo atrapalhe passeios ao ar livre (vinícola, lago, termas) — usem inteiros ou só troquem o dia específico que a chuva pegar. Clique numa opção para redesenhar o trajeto no mapa e ver manhã, tarde e noite de cada dia.</p>
+    </div>
+
+    <div class="option-tabs" id="option-tabs"></div>
+    <button id="open-clima" type="button" class="zoom-into" style="margin-bottom:22px;">☔ Alternativas para dias de chuva</button>
+
+    <div class="roteiro-grid">
+      <div class="map-card">
+        <div class="map-stage">
+          <div class="jump-controls" id="jump-controls">
+            <select id="zoom-select">
+              <option value="region">🗺️ Toscana e Roma inteiras</option>
+              <option value="castellina">🔍 Castellina in Chianti</option>
+              <option value="florence">🔍 Florença centro</option>
+              <option value="siena">🔍 Siena centro</option>
+              <option value="pisa">🔍 Pisa — Piazza dei Miracoli</option>
+              <option value="sangimignano">🔍 San Gimignano</option>
+              <option value="volterra">🔍 Volterra</option>
+              <option value="montalcino">🔍 Montalcino</option>
+              <option value="pienza">🔍 Pienza</option>
+              <option value="montepulciano">🔍 Montepulciano</option>
+              <option value="livorno">🔍 Livorno</option>
+              <option value="roma">🔍 Roma centro</option>
+            </select>
+          </div>
+          <div id="leaflet-map" style="height:640px;"></div>
+        </div>
+        <div class="map-hint">arraste para mover · role o scroll (ou pince) para dar zoom · mapa real OpenStreetMap/CARTO — ruas, estradas e linhas de trem já aparecem sozinhas ao aproximar</div>
+        <div class="legend">
+          <span><i style="background:#B78A34"></i> cidade / arte</span>
+          <span><i style="background:#2F4A3C"></i> vila medieval</span>
+          <span><i style="background:#6E2A2A"></i> vinho</span>
+          <span><i style="background:#3B6A6D"></i> termas / natureza</span>
+          <span><i style="background:#242F42"></i> base / logística</span>
+          <span><i style="background:#C1442E"></i> comida / mercado</span>
+          <span><i style="background:#8E5AA6"></i> compras</span>
+        </div>
+      </div>
+
+      <div class="side-panel" id="side-panel"></div>
+    </div>
+  </div>
+</section>
+
+<footer>Tiezzi in Toscana · roteiro de referência, não substitui confirmação de horários e preços no dia · Out 2026</footer>
+
+<div class="overlay" id="overlay"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-head">
+    <h3>Passageiros &amp; informações</h3>
+    <button id="close-sidebar" type="button">✕</button>
+  </div>
+  <div class="sidebar-body">
+    <div class="group-label">Viagem</div>
+    <div class="acc-item" id="acc-voo">
+      <button class="acc-header" type="button"><span>Voo &amp; Estadia</span><span class="chevron">›</span></button>
+      <div class="acc-content">
+        <p class="hint" style="margin-top:0;">Reserva Decolar nº 684232329200 · código de check-in web B2C29O.</p>
+
+        <div class="sub-title">Ida — GRU → FCO</div>
+        <ul class="clean-list">
+          <li><b>BA246</b> · Qua 07/10, 15:30 → Qui 08/10, 06:50 — GRU São Paulo → LHR Londres (11h20, escala 3h50)</li>
+          <li><b>BA550</b> · Qui 08/10, 10:40 → 14:25 — LHR Londres → FCO Roma (Fiumicino), 2h45</li>
+          <li>Inclui mochila e bagagem de mão · sem despacho</li>
+        </ul>
+
+        <div class="sub-title">Volta — FCO → GRU</div>
+        <ul class="clean-list">
+          <li><b>IB658</b> · Dom 18/10, 07:35 → 10:10 — FCO Roma → MAD Madri (2h35, escala 4h35)</li>
+          <li><b>IB6809</b> · Dom 18/10, 14:45 → 20:20 — MAD Madri → GRU São Paulo (10h35, operado por LATAM)</li>
+          <li>Inclui bagagem despachada · 1 mala por adulto</li>
+        </ul>
+
+        <div class="sub-title">Estadia — Toscana</div>
+        <ul class="clean-list">
+          <li>Airbnb em Castellina in Chianti, oferecido por Carla</li>
+          <li>Castellina in Chianti, Toscana 53011, Itália</li>
+          <li>8 noites · Check-in 08/10 · Check-out 16/10</li>
+        </ul>
+
+        <div class="sub-title">Estadia — Roma</div>
+        <ul class="clean-list">
+          <li><b>RHome 34</b> · Via Ludovico Micara, 34, Aurelio, 00165 Roma</li>
+          <li>2 noites · R$ 2.179 · confirmada</li>
+          <li>16/10 → 18/10</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="group-label">Passageiros</div>
+    <div id="sidebar-family"></div>
+
+    <div class="group-label">Orçamento</div>
+    <div class="acc-item" id="acc-budget">
+      <button class="acc-header" type="button"><span>Orçamento da viagem</span><span class="chevron">›</span></button>
+      <div class="acc-content">
+        <p class="hint" style="margin-top:0;">Câmbio de referência ~R$ 6,20/€. Não inclui carro alugado nem hospedagem (já pagos). Detalhe por pessoa nos cards acima.</p>
+        <div class="info-sub">
+          <table>
+            <thead><tr><th>Pessoa</th><th class="num">Subtotal</th><th class="num">Museus</th><th class="num">Total</th></tr></thead>
+            <tbody>
+              <tr><td>Ricardo</td><td class="num">€985</td><td class="num">€49</td><td class="num">€1.034</td></tr>
+              <tr><td>Erika</td><td class="num">€505</td><td class="num">€49</td><td class="num">€554</td></tr>
+              <tr><td>Thiago</td><td class="num">€1.385</td><td class="num">€49</td><td class="num">€1.434</td></tr>
+              <tr><td>Isabella</td><td class="num">€1.185</td><td class="num">€12</td><td class="num">€1.197</td></tr>
+              <tr style="font-weight:600;"><td>Total família</td><td class="num">€4.060</td><td class="num">€159</td><td class="num">€4.219</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul class="clean-list">
+          <li><b>Ingressos:</b> Uffizi + Accademia somam €159 pra família — comprar o quanto antes, em uffizi.it (Uffizi) e galleriaaccademiafirenze.it (Accademia). O horário 8h15 reduzido esgota rápido.</li>
+          <li><b>Isabella e o Switch 2:</b> compra sozinha agora, sem depender de acerto com o irmão depois.</li>
+          <li><b>Combustível:</b> estimado a ~€0,12/km (carro econômico) — custo do carro inteiro, confirmar no posto.</li>
+          <li><b>Pagamento:</b> maior parte em cartão internacional sem tarifa de conversão; pouca coisa em espécie.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="group-label">Informações Importantes</div>
+
+    <div class="acc-item" id="acc-deslocamentos">
+      <button class="acc-header" type="button"><span>Deslocamentos</span><span class="chevron">›</span></button>
+      <div class="acc-content">
+        <p class="hint" style="margin-top:0;"><b>Atenção:</b> o Airbnb (Il Granaio) fica na zona rural entre Poggibonsi e Castellina in Chianti, perto da vinícola Melini — não no centro da cidade. As distâncias abaixo foram recalculadas a partir da localização real (coordenadas GPS), mas são estimativas por linha reta + fator de estrada — confirmem a rota exata no Google Maps/Waze quando tiverem o pino do Airbnb à mão.</p>
+        <div class="info-sub">
+          <table>
+            <thead><tr><th>Destino (de Castellina)</th><th class="num">Dist.</th><th class="num">Tempo</th></tr></thead>
+            <tbody>
+              <tr><td>Florença</td><td class="num">~45 km</td><td class="num">45–50 min</td></tr>
+              <tr><td>Siena</td><td class="num">~20 km</td><td class="num">25–30 min</td></tr>
+              <tr><td>San Gimignano</td><td class="num">~30 km</td><td class="num">35–40 min</td></tr>
+              <tr><td>Volterra</td><td class="num">~55 km</td><td class="num">55 min–1h</td></tr>
+              <tr><td>Montalcino</td><td class="num">69 km</td><td class="num">1h10–1h15</td></tr>
+              <tr><td>Pienza</td><td class="num">~75 km</td><td class="num">1h10–1h15</td></tr>
+              <tr><td>Montepulciano</td><td class="num">~85 km</td><td class="num">1h20</td></tr>
+              <tr><td>Bagno Vignoni</td><td class="num">~80 km</td><td class="num">1h15–1h20</td></tr>
+              <tr><td>Bagni San Filippo</td><td class="num">~85 km</td><td class="num">1h20–1h25</td></tr>
+              <tr><td>Pisa</td><td class="num">103 km</td><td class="num">1h29</td></tr>
+              <tr><td>Livorno</td><td class="num">~123 km</td><td class="num">1h45–1h50</td></tr>
+              <tr><td>Foiano della Chiana</td><td class="num">~60 km</td><td class="num">55 min–1h</td></tr>
+              <tr><td>Cortona</td><td class="num">~80 km</td><td class="num">1h10</td></tr>
+              <tr><td>Lago Trasimeno</td><td class="num">~90 km</td><td class="num">1h20</td></tr>
+              <tr><td>Roma (Airbnb Aurelio)</td><td class="num">~230 km</td><td class="num">2h40–3h</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="hint">Estimativas de estrada — confirmem no Google Maps/Waze no dia, principalmente nas secundárias do Val d'Orcia. Combustível a ~€0,12/km.</p>
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc-trens">
+      <button class="acc-header" type="button"><span>Trens úteis</span><span class="chevron">›</span></button>
+      <div class="acc-content">
+        <div class="sub-title">De trem, direto de Poggibonsi (rota usada no roteiro)</div>
+        <div class="info-sub">
+          <table>
+            <tbody>
+              <tr><td>Castellina → estação de Poggibonsi (carro)</td><td class="num">~15 min</td></tr>
+              <tr><td>Estacionamento na própria estação</td><td class="num">gratuito/pago, confirmar</td></tr>
+              <tr><td>Poggibonsi → Firenze S.M.N. (trem regional, direto)</td><td class="num">1h06–1h33</td></tr>
+              <tr><td>Poggibonsi → Siena</td><td class="num">~20 min</td></tr>
+              <tr><td>Firenze S.M.N. → Pisa Centrale</td><td class="num">~1h</td></tr>
+              <tr><td>Val d'Orcia → estação Chiusi-Chianciano</td><td class="num">+20–40 min bus/táxi</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="hint">Trem direto sem baldeação — mais simples que ir de carro até um park-and-ride e trocar para o tram em Florença. Horários confirmados para dias úteis (a grade muda aos fins de semana/feriados) — reconfirmem no Trenitalia perto da viagem.</p>
+
+        <div class="sub-title">Trens diretos Poggibonsi → Firenze, manhã de sexta-feira (dia 2 do roteiro)</div>
+        <div class="info-sub">
+          <table>
+            <thead><tr><th>Sai Poggibonsi</th><th class="num">Chega Firenze S.M.N.</th></tr></thead>
+            <tbody>
+              <tr><td><b>06:06</b> — rápida</td><td class="num">07:23</td></tr>
+              <tr><td>06:48</td><td class="num">07:54</td></tr>
+              <tr><td>06:59</td><td class="num">08:32</td></tr>
+              <tr><td>07:28</td><td class="num">08:59</td></tr>
+              <tr><td><b>08:42</b> — confortável</td><td class="num">09:52</td></tr>
+              <tr><td>09:42</td><td class="num">10:52</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="sub-title">🚄 Rápida × 🛋️ Confortável</div>
+        <ul class="clean-list">
+          <li>São <b>22–23 trens diretos por dia</b> nessa linha — o primeiro sai <b>06h06</b> (chega 07h23), o último <b>22h07</b></li>
+          <li><b>Opção rápida:</b> pegar o 06h06 e chegar bem na abertura da Accademia (8h15) — exige acordar cedo</li>
+          <li><b>Opção confortável:</b> pegar o trem das <b>08h42</b> (chega 09h52) e reservar a entrada do museu para ~10h15–10h30 — acorda-se ~2h mais tarde</li>
+          <li>À tarde os trens seguem de hora em hora (11:42, 12:42, 13:42...) até o último às 22h07 — dá pra ajustar a volta com folga</li>
+        </ul>
+
+        <div class="sub-title">Roma — dia 17, sem carro</div>
+        <ul class="clean-list">
+          <li>Estação mais próxima do Airbnb: Baldo degli Ubaldi ou Cornelia (Linha A)</li>
+          <li>Coliseu fica na Linha B — trocar em Termini (~30–35 min ao todo)</li>
+          <li>Trevi, Pantheon, Piazza Navona e Campo de' Fiori: tudo a poucos minutos a pé entre si</li>
+        </ul>
+
+        <div class="sub-title">Roma — o carro fica parado</div>
+        <ul class="clean-list">
+          <li>Dia 16: dirigem direto até o Aurelio e estacionam lá (fora da ZTL, sem multa)</li>
+          <li>O carro não se mexe até o dia 18</li>
+          <li>Dia 18, de madrugada: pegam o carro e vão direto ao Fiumicino (~30–40 min)</li>
+          <li>Confirmar com a locadora o horário do balcão de devolução (~4h/4h30)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc-museus">
+      <button class="acc-header" type="button"><span>Ingressos &amp; experiências</span><span class="chevron">›</span></button>
+      <div class="acc-content">
+        <div class="sub-title">Uffizi e Accademia (Florença) — já comprados</div>
+        <div class="info-sub">
+          <table>
+            <thead><tr><th>Museu</th><th class="num">Cheio</th><th class="num">Reduzido (Isabella)</th></tr></thead>
+            <tbody>
+              <tr><td>Galleria degli Uffizi</td><td class="num">€29</td><td class="num">€6</td></tr>
+              <tr><td>Accademia (David)</td><td class="num">€20</td><td class="num">€6</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul class="clean-list">
+          <li>Total família ≈ <b>€159</b></li>
+          <li>Uffizi: <b>uffizi.it</b> (redireciona pra tickets.uffizi.it) · Accademia: <b>galleriaaccademiafirenze.it</b></li>
+          <li>Já reservado: Accademia 10/10 às <b>8h15</b>, Uffizi às <b>11h15</b></li>
+          <li>Cuidado com sites de revenda parecidos que cobram bem mais caro — confirmem que o domínio é o oficial do museu</li>
+          <li>Isabella paga tarifa reduzida UE 18–25 com documento europeu/italiano</li>
+        </ul>
+
+        <div class="sub-title">Coliseu (Roma)</div>
+        <ul class="clean-list">
+          <li>Site oficial certo: <b>colosseo.it</b> → redireciona para <b>ticketing.colosseo.it</b> (digite direto na barra do navegador, não clique em resultado de busca — tem muito site falso com nome parecido)</li>
+          <li>Preço: <b>€18</b>/pessoa (entrada padrão 24h) · reduzido UE 18–25: <b>€2</b> (padrão) ou <b>€6</b> (experiência completa) · taxa de reserva não reembolsável de €2</li>
+          <li>Entrada padrão não inclui Fórum/Palatino automaticamente — conferem o "Forum Pass SUPER" (€18) se quiserem os três juntos</li>
+          <li>Reserva de horário obrigatória, abre <b>30 dias antes</b> da visita (dia de vocês é 17/10 → reservem a partir de ~17/09)</li>
+          <li>Coliseu abre às 8h30</li>
+        </ul>
+
+        <div class="sub-title">Torre di Pisa</div>
+        <ul class="clean-list">
+          <li>Site oficial: <b>opapisa.it</b> (Opera della Primaziale Pisana)</li>
+          <li>Preço: <b>€20</b>/pessoa — sem tarifa reduzida, nem para jovens — ingresso só da Torre (sem Battistero/Camposanto)</li>
+          <li>O Duomo entra de graça com esse ingresso, sem horário marcado</li>
+          <li>Reserva abre até <b>90 dias antes</b> — dá pra reservar desde já</li>
+          <li>Também dá pra comprar no local (bilheteria da Piazza dei Miracoli), mas essa é a única das três atrações de Roma/Pisa com risco real de esgotar (acesso é limitado por segurança) — em outubro o risco é baixo, mas melhor reservar antes por garantia</li>
+          <li>Menores de 8 anos não podem subir, por segurança</li>
+        </ul>
+
+        <div class="sub-title">Pantheon (Roma)</div>
+        <ul class="clean-list">
+          <li>Site oficial confirmado pelo Ministério da Cultura: <b>portale.museiitaliani.it</b> (ou app "Musei Italiani") — ingresso puro, sem áudio guia empacotado. Evitem pantheonroma.com e sites de revenda cobrando €15–30, que não são o canal indicado pelo Ministério</li>
+          <li>Preço: <b>€7</b>/pessoa desde 1º/07/2026 (subiu de €5) — reduzido pra Isabella (UE 18–25), valor a confirmar na compra</li>
+          <li>Não é tecnicamente obrigatório reservar, mas a fila física da bilheteria pode passar de 1h — melhor reservar online no portale.museiitaliani.it com antecedência</li>
+          <li>Entrada gratuita, sem reserva: seg-sáb 9h–9h30 e domingo 12h–13h (horário de culto religioso, mais corrido)</li>
+        </ul>
+
+        <div class="sub-title">Fontana di Trevi</div>
+        <ul class="clean-list">
+          <li>Desde <b>2/fev/2026</b>, o perímetro interno (perto do "catino") é pago: <b>€2</b>/pessoa, todos os dias das 9h às 22h</li>
+          <li>Site oficial: <b>fontanaditrevi.roma.it</b> — também dá pra comprar no local (só cartão), nos Musei Civici ou nos pontos de informação turística (PIT)</li>
+          <li>Grátis para: residentes de Roma, PCD + acompanhante, menores de 6 anos</li>
+          <li>Depois das 22h dá pra ver de graça, mas só de fora da cerca — antes disso, vale a pena o ingresso pra chegar pertinho</li>
+          <li>Ingresso online vale pra qualquer data, sem horário fixo marcado</li>
+        </ul>
+
+        <div class="sub-title">🏎️ Ferrari em Florença (opcional)</div>
+        <ul class="clean-list">
+          <li>Site oficial: <b>tuscanytestdrive.com</b> — Ferrari Portofino, com piloto profissional, saindo do Piazzale Michelangelo</li>
+          <li><b>10 km / 15 min</b> — a partir de €150</li>
+          <li><b>18 km / 45 min</b> — a partir de €260</li>
+          <li>32 km/60 min (€390) e 64 km/120 min pelo Chianti (€720) — hoje só reserváveis por WhatsApp: +39 331 706 4947</li>
+          <li>Encaixa bem no fim da tarde do Dia 8 (dia livre), se escolherem ficar mais um dia em Florença</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc-termas">
+      <button class="acc-header" type="button"><span>Termas</span><span class="chevron">›</span></button>
+      <div class="acc-content">
+        <div class="sub-title">Horário ideal para chegar</div>
+        <ul class="clean-list">
+          <li>Em outubro o sol se põe entre <b>18h30</b> (início do mês) e <b>18h00</b> (a partir do dia 13) em toda a Toscana</li>
+          <li>Depois do pôr do sol ainda há uns 20–30 min de luz fraca (crepúsculo) antes de escurecer de vez</li>
+          <li><b>Cheguem até as 16h30–17h</b> — dá 1h30–2h de luz para aproveitar a água e voltar ao carro com calma e segurança</li>
+          <li>Bagni San Filippo tem uma trilha curta na mata e sem iluminação — evitem chegar depois das 17h</li>
+          <li>Bagno Vignoni é dentro do vilarejo (com luz das ruas), então tolera um horário um pouco mais tardio, até ~17h30</li>
+        </ul>
+        <div class="sub-title">Bagni San Filippo</div>
+        <ul class="clean-list">
+          <li>Via San Filippo, Castiglione d'Orcia</li>
+          <li>Gratuita e ao ar livre</li>
+          <li>Trilha curta até o Fosso Bianco</li>
+          <li>Bem menos concorrida que Saturnia</li>
+          <li>Ir de tênis e roupa de banho por baixo da roupa</li>
+        </ul>
+        <div class="sub-title">Bagno Vignoni</div>
+        <ul class="clean-list">
+          <li>Piscina termal histórica na praça — só contemplação, não dá pra entrar</li>
+          <li>Termas livres próximas, na região do rio</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc-compras">
+      <button class="acc-header" type="button"><span>Compras</span><span class="chevron">›</span></button>
+      <div class="acc-content">
+        <div class="sub-title">Eletrônicos — duas opções, ambas de trem/tram</div>
+        <div class="info-sub">
+          <table>
+            <thead><tr><th>Item</th><th>MediaWorld (Novoli)</th><th class="num">Unieuro (Sesto F.)</th></tr></thead>
+            <tbody>
+              <tr><td>Nintendo Switch 2</td><td>€468</td><td class="num">€468</td></tr>
+              <tr><td>PlayStation 5 (com leitor)</td><td>€649,99</td><td class="num">€649,99</td></tr>
+              <tr><td>PlayStation 5 Digital</td><td>€599,99</td><td class="num">€599,99</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul class="clean-list">
+          <li><b>Apple Watch Series 11</b> — Apple Store, Piazza della Repubblica, Firenze — €449–509</li>
+          <li><b>MediaWorld Novoli</b> — Centro Comm. San Donato, Via dei Rastrelli — tram <b>T2</b> direto de Firenze S.M.N., parada "San Donato-Università" (na porta do shopping) — seg–sáb 9h30–20h, domingo 10h–20h</li>
+          <li><b>Unieuro Sesto Fiorentino</b> — trem regional direto de Firenze S.M.N. até a estação de Sesto Fiorentino, ~23–30 min — seg–sáb 9h30–20h, domingo 10h–20h (mesmo horário da MediaWorld)</li>
+          <li>Preço igual nas duas lojas — a diferença é só qual trajeto de trem/tram é mais conveniente no dia</li>
+          <li><b>Quando ir:</b> fim do dia do <b>Dia 4 (11/10)</b>, depois da feira de Santo Spirito — se não der tempo, o <b>Dia 8 (15/10, dia livre)</b> é o plano B</li>
+          <li>Aproveitem para comprar uma <b>mala nova de ~23 kg</b> no mesmo lugar — as duas lojas vendem malas a partir de ~€35–40</li>
+          <li>Os consoles vão na <b>bagagem de mão</b> até o fim da viagem, para não arriscar extraviar — o resto das compras (roupas, suvenires) vai na mala despachada, só disponível na volta</li>
+          <li>Vale conferir o Tax Free para compras acima de ~€70</li>
+        </ul>
+
+        <div class="sub-title">Moda, maquiagem e perfume</div>
+        <ul class="clean-list">
+          <li><b>Officina Santa Maria Novella</b> — Via della Scala, 16, Firenze — todo dia, 9h–20h</li>
+          <li><b>Sephora Firenze</b> — Via dei Calzaiuoli, 56/R — todo dia, 10h–20h30</li>
+          <li><b>Kiko Milano Firenze</b> — Via dei Calzaiuoli, 82r — todo dia, 10h–20h (mesma rua da Sephora)</li>
+          <li><b>Sephora Roma</b> — Via del Corso</li>
+          <li><b>La Rinascente Roma</b> — Via del Tritone, 61 (2 min da Trevi)</li>
+          <li><b>Melrose</b> (brechó/vintage) — Via de' Ginori, 18r <i>ou</i> Largo Fratelli Alinari, 8, Firenze — todo dia, ~10h–21h</li>
+        </ul>
+        <p class="hint">Mala nova: Unieuro ou Rinascente, €80–150.</p>
+
+        <div class="sub-title">Feira de roupas e couro — atenção ao dia</div>
+        <ul class="clean-list">
+          <li>O Mercato di San Lorenzo (couro, cachecóis) <b>fecha aos domingos</b> — funciona só de segunda a sábado</li>
+          <li>Domingo é dia da <b>Mercato di Santo Spirito</b> (Piazza Santo Spirito, Oltrarno), 9h–19h — acontece no 2º domingo do mês, e 11/10 cai exatamente nesse domingo: ~100 antiquários e roupas vintage</li>
+        </ul>
+
+        <div class="sub-title">Suvenires e presentes (toucas, cachecóis, canetas, canecas, marca-páginas...)</div>
+        <div class="info-sub">
+          <table>
+            <thead><tr><th>Onde</th><th>O que encontrar</th></tr></thead>
+            <tbody>
+              <tr><td>Il Papiro (Firenze e Siena)</td><td>papelaria fina italiana: canetas, marca-páginas e cadernos de capa marmorizada — clássico presente florentino</td></tr>
+              <tr><td>Mercato di San Lorenzo (Firenze, fecha domingo)</td><td>cachecóis e gorros de lã/caxemira, luvas de couro, echarpes — dá pra pechinchar</td></tr>
+              <tr><td>Giunti Odeon — Via degli Anselmi/Piazza degli Strozzi, 3-5-7, Firenze — livraria todo dia 10h–20h30, cinema a partir das 21h</td><td>livraria-cinema histórica, ótima pra um livro ou item de papelaria de lembrança</td></tr>
+              <tr><td>Lojas de cerâmica em Siena/San Gimignano/Montalcino</td><td>canecas e pratos pintados à mão, motivos toscanos ou do Palio di Siena</td></tr>
+              <tr><td>Via dei Coronari e Campo de' Fiori (Roma)</td><td>artesanato, ímãs, canecas e miudezas — bom para presentes rápidos e variados</td></tr>
+              <tr><td>Tabaccherias/edicolas (em qualquer cidade)</td><td>postais, canetas simples e lembrancinhas baratas de última hora</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul class="clean-list">
+          <li>Il Papiro é a aposta mais segura para quem quer algo pequeno e "tipicamente italiano" (caneta, marca-página, caderno)</li>
+          <li>Cachecóis e toucas de lã compensam duas vezes: servem de presente e ainda esquentam nas noites mais frias de outubro</li>
+          <li>Reservem um espaço extra na mala para as canecas de cerâmica — costumam ser o item mais frágil</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc-taxfree">
+      <button class="acc-header" type="button"><span>Tax Free — reembolso do IVA</span><span class="chevron">›</span></button>
+      <div class="acc-content">
+        <p class="hint" style="margin-top:0;">Vale para qualquer morador fora da UE — <b>vale pra vocês mesmo com passaporte italiano</b>, porque o critério é residência, não cidadania.</p>
+
+        <div class="sub-title">Isabella e o pai — atenção com o passaporte</div>
+        <ul class="clean-list">
+          <li>Na hora de comprar, <b>apresentem o passaporte brasileiro</b>, não o italiano — o benefício é pra quem mora fora da UE, e o passaporte italiano pode fazer a loja achar que vocês moram na Europa</li>
+          <li>Normalmente só o passaporte basta. Em alguns casos a loja pode pedir um comprovante de residência no Brasil (conta de luz/água, por exemplo) — vale levar uma foto de algum comprovante salva no celular, por garantia</li>
+        </ul>
+
+        <div class="sub-title">Como funciona hoje (sistema digital OTELLO)</div>
+        <ul class="clean-list">
+          <li>Não tem mais carimbo em papel — a loja registra a compra digitalmente no sistema, vinculada ao seu passaporte</li>
+          <li>No aeroporto, a validação é feita em <b>totens automáticos</b>: escaneia o QR code do formulário, sem precisar falar com ninguém</li>
+          <li>App útil pra baixar: <b>Global Blue</b> (o operador mais comum nas lojas da Itália) — acompanha o status do reembolso</li>
+        </ul>
+
+        <div class="sub-title">✅ Tudo em Fiumicino, antes do check-in (mais tranquilo)</div>
+        <ul class="clean-list">
+          <li>Como a conexão Roma → Madri → São Paulo é <b>no mesmo bilhete</b>, a lei permite validar tudo em <b>Fiumicino</b> em vez de esperar o último país da UE (Madri) — não é obrigatório fazer em Madri, é só a regra padrão pra quem não tem essa conexão única</li>
+          <li>Levem <b>tudo junto</b> nesse balcão — inclusive os consoles, mesmo estando na bagagem de mão — assim resolvem tudo de uma vez, sem depender das 4h35 de conexão</li>
+          <li><b>Onde fica:</b> não é no check-in da companhia aérea — é um balcão separado da Agenzia delle Dogane (ou dos operadores Global Blue/Planet/Tax Refund), na área de partidas, <b>antes</b> dos guichês de check-in normais</li>
+          <li>Em Fiumicino: Terminal 3 (mais provável pro voo internacional, perto dos guichês 196–225), Terminal 1 (perto dos guichês 111–140), ou Área de Embarque E (perto do Info Point da ADR) — confirmem o terminal certo quando o check-in abrir</li>
+          <li>Cheguem ao aeroporto com <b>30–45 min extras</b> só pra esse passo, por causa de fila possível</li>
+          <li>Para o que for na mala despachada, isso é <b>obrigatório</b> antes de despachar — o produto precisa estar visível, fora da mala, na hora</li>
+        </ul>
+
+        <div class="sub-title">Regras práticas</div>
+        <ul class="clean-list">
+          <li>Mínimo de <b>€70,01</b> por loja (dá pra somar recibos do mesmo dia, na mesma loja)</li>
+          <li>Produtos têm que sair da UE em até <b>3 meses</b> da compra — no caso de vocês, não é problema</li>
+          <li>Levem os produtos sem uso e, se possível, na embalagem original até a validação</li>
+          <li>Prazo de 6 meses para enviar os formulários pelo correio, caso o totem não devolva o dinheiro na hora</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc-clima">
+      <button class="acc-header" type="button"><span>Clima &amp; dias de chuva</span><span class="chevron">›</span></button>
+      <div class="acc-content">
+        <p class="hint" style="margin-top:0;">Outubro é outono na Toscana: temperaturas amenas (12–20°C) mas com chuva esperada em vários dias do mês — geralmente pancadas de algumas horas, não o dia inteiro.</p>
+
+        <div class="sub-title">Se chover em Castellina/Chianti</div>
+        <ul class="clean-list">
+          <li>A vinícola não muda de plano — a degustação e o tour acontecem em ambiente coberto</li>
+          <li>Bom dia para ficar na base, cozinhar algo e descansar</li>
+        </ul>
+
+        <div class="sub-title">Se chover em Florença</div>
+        <ul class="clean-list">
+          <li>Dia perfeito para Uffizi e Accademia — são o grosso do roteiro e já são indoor</li>
+          <li>Mercato Centrale é coberto — ótimo para almoçar sem pressa</li>
+          <li>Compras (Apple Store, La Rinascente, Sephora) também resolvem a tarde toda</li>
+        </ul>
+
+        <div class="sub-title">Se chover em Siena / San Gimignano / Volterra</div>
+        <ul class="clean-list">
+          <li>Interior do Duomo di Siena e o Museo dell'Opera</li>
+          <li>Torre del Mangia e Museo Civico, em Siena</li>
+          <li>Torre Grossa (San Gimignano) e Museu Etrusco/do Alabastro (Volterra)</li>
+        </ul>
+
+        <div class="sub-title">Se chover no Val d'Orcia (Montalcino/Pienza/Montepulciano)</div>
+        <ul class="clean-list">
+          <li>Ótimo pretexto para trocar caminhada por mais tempo de degustação nas cantinas de Brunello e Vino Nobile — todas cobertas</li>
+        </ul>
+
+        <div class="sub-title">Se chover em Pisa/Livorno</div>
+        <ul class="clean-list">
+          <li>Interior do Duomo e do Battistero em Pisa</li>
+          <li>Camposanto Monumentale — cemitério monumental coberto, ao lado da Torre</li>
+        </ul>
+
+        <div class="sub-title">Se chover em Roma</div>
+        <ul class="clean-list">
+          <li>Pantheon — o interior é um dos mais bonitos de Roma, chuva ou sol</li>
+          <li>La Rinascente e as lojas do Tritone/Via del Corso</li>
+          <li>Fontana di Trevi continua linda debaixo de guarda-chuva, e fica bem mais vazia</li>
+        </ul>
+
+        <div class="sub-title">E as termas?</div>
+        <ul class="clean-list">
+          <li>Chuva fraca não é problema — a água já é quente, o incômodo é só na ida/volta pela trilha</li>
+          <li>Em caso de tempestade ou raios, é melhor adiar — trilha de Bagni San Filippo fica escorregadia</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc-mala">
+      <button class="acc-header" type="button"><span>O que levar na mala</span><span class="chevron">›</span></button>
+      <div class="acc-content">
+        <p class="hint" style="margin-top:0;"><b>Na ida, é só bagagem de mão</b> (sem despacho) — na volta já tem 1 mala despachada por adulto. Essa lista é pensada pra caber tudo na de mão na ida, com dicas de como organizar.</p>
+
+        <div class="sub-title">Regras da bagagem de mão (British Airways)</div>
+        <ul class="clean-list">
+          <li>Mala de cabine: até <b>56 × 45 × 25 cm</b>, guardada no compartimento de cima — sem peso rígido definido, mas precisa conseguir erguer sozinho</li>
+          <li>+ 1 item pessoal (mochila pequena/bolsa): até <b>40 × 30 × 15 cm</b>, cabe embaixo do banco</li>
+          <li><b>Líquidos:</b> cada frasco até <b>100 ml</b>, todos dentro de 1 saco plástico transparente lacrável de até 1 litro (~20×20 cm) — vale pra shampoo, creme, pasta de dente, perfume, maquiagem líquida</li>
+          <li><b>Power bank e baterias extras:</b> só podem ir na bagagem de mão (nunca despachados) — não é problema pra vocês, já que a ida toda é de mão mesmo</li>
+          <li><b>Objetos cortantes</b> (tesoura, canivete, saca-rolha com lâmina): não podem ir na mão — como não tem despacho na ida, melhor deixar em casa ou comprar na Itália se precisar</li>
+          <li><b>Remédios</b> são isentos da regra dos 100 ml, mas levem na embalagem original + uma cópia da receita/prescrição</li>
+        </ul>
+
+        <div class="sub-title">Tomada e voltagem na Itália</div>
+        <ul class="clean-list">
+          <li>Tomada padrão italiana: <b>Tipo L</b> (três pinos em linha) — levem um <b>adaptador universal</b></li>
+          <li>Voltagem: <b>230V/50Hz</b> (o Brasil varia entre 127V e 220V) — celular, notebook e câmera geralmente são bivolt e funcionam bem só com o adaptador</li>
+          <li><b>Secador e chapinha</b> geralmente NÃO são bivolt — confiram a etiqueta antes de levar; se não for, melhor deixar em casa (risco de queimar) e comprar um simples lá se precisarem</li>
+        </ul>
+
+        <div class="sub-title">Roupas (pensando em ~10 dias, clima ameno mas variável)</div>
+        <div class="info-sub">
+          <table>
+            <thead><tr><th>Item</th><th class="num">Quantidade sugerida</th></tr></thead>
+            <tbody>
+              <tr><td>Calças (jeans, social, uma confortável/legging)</td><td class="num">3–4</td></tr>
+              <tr><td>Camisetas/blusas (algumas de manga longa)</td><td class="num">5–6</td></tr>
+              <tr><td>Suéter ou blusa de frio</td><td class="num">2</td></tr>
+              <tr><td>Casaco corta-vento/impermeável leve (outubro pode chover)</td><td class="num">1</td></tr>
+              <tr><td>Casaco mais pesado (noites ~10-12°C)</td><td class="num">1</td></tr>
+              <tr><td>Roupa íntima</td><td class="num">7–10</td></tr>
+              <tr><td>Meias</td><td class="num">7–10 pares</td></tr>
+              <tr><td>Pijama</td><td class="num">1–2</td></tr>
+              <tr><td>Roupa de banho (termas — Bagni San Filippo, Bagno Vignoni)</td><td class="num">1</td></tr>
+              <tr><td>Look mais elegante (jantar especial em Roma/Siena)</td><td class="num">1</td></tr>
+              <tr><td>Cachecol, gorro leve, luvas finas</td><td class="num">1 de cada</td></tr>
+              <tr><td>Guarda-chuva compacto ou capa de chuva</td><td class="num">1</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="sub-title">Sapatos</div>
+        <ul class="clean-list">
+          <li><b>Tênis confortável</b> pra caminhar — essencial, vão andar muito todos os dias</li>
+          <li>Um sapato mais social, pra jantar fora</li>
+          <li>Chinelo/sandália — útil nas termas e pra descansar o pé à noite</li>
+        </ul>
+
+        <div class="sub-title">Higiene pessoal</div>
+        <ul class="clean-list">
+          <li>Escova e pasta de dente (pasta em mini tubo, até 100 ml)</li>
+          <li>Desodorante — prefiram o formato sólido/bastão (foge da regra de líquido) ou um mini de até 100 ml</li>
+          <li>Shampoo, condicionador e sabonete líquido em frascos de viagem (até 100 ml cada)</li>
+          <li>Protetor solar em mini frasco</li>
+          <li>Lâmina de barbear descartável simples (geralmente permitida; navalha reta não)</li>
+          <li>Cortador de unha pequeno (tesoura pontiaguda grande não passa na bagagem de mão)</li>
+        </ul>
+
+        <div class="sub-title">Maquiagem e cabelo</div>
+        <ul class="clean-list">
+          <li>Batom, pó compacto, sombra — sólidos, sem restrição de líquido</li>
+          <li>Base, máscara de cílios, primer — líquidos, precisam estar em frascos até 100 ml dentro do saquinho transparente</li>
+          <li>Escova de cabelo, elásticos, presilhas</li>
+          <li>Leave-in/creme de pentear em mini frasco</li>
+          <li>Secador/chapinha só se forem bivolt (ver seção de tomada acima)</li>
+        </ul>
+
+        <div class="sub-title">Perfume</div>
+        <ul class="clean-list">
+          <li>Se o vidro original tiver até 100 ml, pode levar assim mesmo — só precisa ir dentro do saquinho transparente junto com os outros líquidos</li>
+          <li>Se for maior que 100 ml, aí sim precisa passar para um frasquinho de viagem menor</li>
+        </ul>
+
+        <div class="sub-title">Remédios</div>
+        <ul class="clean-list">
+          <li>Remédios de uso contínuo: levem na embalagem original, com folga de dias extras, + cópia da receita</li>
+          <li>Kit básico sugerido: analgésico (dipirona/paracetamol), anti-inflamatório, antialérgico, remédio pra enjoo/diarreia, soro fisiológico, curativos/band-aid</li>
+          <li>Repelente, se forem passar tempo ao ar livre nas termas/trilhas</li>
+        </ul>
+
+        <div class="sub-title">Eletrônicos e documentos</div>
+        <ul class="clean-list">
+          <li>Celular + carregador, adaptador de tomada universal (Tipo L), power bank (vai na mão, sempre)</li>
+          <li>Passaporte válido — o italiano, pra Isabella e o pai, além do brasileiro (ver a conversa sobre Tax Free)</li>
+          <li>Cópia impressa e digital: reservas de hospedagem, seguro viagem, passagens</li>
+          <li>Cartão de crédito internacional sem tarifa de conversão + uma reserva pequena em espécie</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc-dicas-gerais">
+      <button class="acc-header" type="button"><span>Dicas práticas de viagem</span><span class="chevron">›</span></button>
+      <div class="acc-content">
+        <div class="sub-title">📶 Chip/eSIM pra usar o celular</div>
+        <ul class="clean-list">
+          <li>Melhor opção: <b>eSIM</b> (Airalo ou Holafly) — instala ainda no Brasil, antes de embarcar, e já chega conectado na Itália</li>
+          <li>Pra conferir se o celular é compatível: disquem <b>*#06#</b> — se aparecer um código EID, funciona (iPhone XS ou mais novo, e a maioria dos Android recentes)</li>
+          <li>Preço aproximado pros 10 dias de viagem: de ~US$ 20 (planos mais básicos, medidos por GB) a ~US$ 30-40 (planos "ilimitados" com limite de uso justo) — rodam nas redes TIM/Vodafone/WindTre, mesma cobertura de quem mora lá</li>
+          <li>Alternativa: chip físico nos quiosques da TIM/Vodafone/WindTre no aeroporto (precisa de passaporte pra cadastrar)</li>
+          <li>O chip brasileiro continua no aparelho recebendo SMS (código de banco, verificação) — o eSIM só cuida dos dados móveis</li>
+        </ul>
+
+        <div class="sub-title">🚻 Banheiros públicos</div>
+        <ul class="clean-list">
+          <li>Diferente do Brasil, <b>banheiro público pago é normal</b> na Itália — costuma custar €0,50 a €1,50, principalmente em estações de trem e praças turísticas</li>
+          <li>Estratégia mais prática: usem o banheiro de museus que já estão visitando, ou peçam um café no balcão de um bar (~€1) e usem o banheiro de lá</li>
+          <li>Peçam por "<b>bagno</b>" ou "<b>toilette</b>" — "bathroom" em inglês pode confundir, já que ali seria "onde se toma banho"</li>
+          <li>Levem trocado (moedas de €0,50/€1) e um pacotinho de lenços umedecidos, por garantia (às vezes falta papel)</li>
+        </ul>
+
+        <div class="sub-title">💧 Água</div>
+        <ul class="clean-list">
+          <li>Água da torneira é potável em toda a Itália, inclusive Roma e Toscana — só evitem se a fonte tiver a placa "acqua non potabile"</li>
+          <li>Em Roma, procurem os <b>"nasoni"</b> — as fontinhas públicas espalhadas pela cidade, com bica constante — ótimas pra reabastecer a garrafinha de graça</li>
+        </ul>
+
+        <div class="sub-title">🍽️ Restaurante: coperto e gorjeta</div>
+        <ul class="clean-list">
+          <li><b>Coperto:</b> uma taxa de €1 a €3 por pessoa (pode chegar a €5-6 em lugares mais turísticos) que aparece na conta — é legal, cobre pão/azeite/talheres/mesa, não é pegadinha</li>
+          <li><b>Gorjeta:</b> não é obrigatória nem cultural na Itália — o serviço já está embutido. Deixem só se realmente gostaram (5-10%), ou arredondem a conta pra cima</li>
+        </ul>
+
+        <div class="sub-title">🆘 Emergência e documentos</div>
+        <ul class="clean-list">
+          <li><b>112</b> — número único de emergência em toda a Itália e UE (polícia, ambulância, bombeiros), ligação gratuita</li>
+          <li><b>Embaixada do Brasil em Roma:</b> +39 06 683981 — pra perda/roubo de passaporte ou emergências consulares</li>
+          <li>Guardem uma cópia (foto no celular + impressa) do passaporte, do seguro viagem e das reservas — separado de onde guardam o original</li>
+          <li><b>Seguro viagem</b> é altamente recomendado (cobertura mínima sugerida de €30.000) — mesmo brasileiros não precisando de visto pra turismo</li>
+        </ul>
+
+        <div class="sub-title">🏥 Seguro viagem — e a cidadania italiana não cobre sozinha</div>
+        <ul class="clean-list">
+          <li>Ter <b>passaporte italiano não dá acesso automático à saúde pública</b> de graça na Itália — isso só vale pra quem é <b>residente registrado lá</b> e tem a Tessera Sanitaria (o cartão do sistema público). Morando no Brasil, Isabella e o pai não têm esse cartão, mesmo sendo cidadãos italianos</li>
+          <li>Existe um caminho alternativo — o <b>CDAM/IB2</b>, um acordo de reciprocidade Brasil-Itália — que qualquer <b>cidadão brasileiro</b> (não precisa ser cidadão italiano) pode solicitar no INSS <b>antes de viajar</b>, dando direito a atendimento pelo sistema público em caso de necessidade. Mas precisa pedir com antecedência, e cobre só o essencial (não remoção médica, cancelamento de viagem, etc.)</li>
+          <li>Sem seguro nem CDAM, uma emergência real costuma ser atendida e estabilizada de qualquer forma — mas o tratamento pode ser cobrado depois, e conta de hospital no exterior pode ser cara</li>
+          <li><b>Recomendação:</b> todo mundo faz seguro viagem, inclusive Isabella e o pai — cobre muito mais que só atendimento médico (remoção, internação, bagagem, cancelamento), e não depende de burocracia prévia nem de esperar uma emergência "grave o bastante"</li>
+        </ul>
+
+        <div class="sub-title">🗣️ Frases básicas em italiano</div>
+        <ul class="clean-list">
+          <li><b>Per favore</b> (por favor) · <b>Grazie</b> (obrigado) · <b>Scusi</b> (com licença/desculpe) · <b>Quanto costa?</b> (quanto custa?)</li>
+          <li><b>Dov'è il bagno?</b> (onde fica o banheiro?) · <b>Il conto, per favore</b> (a conta, por favor)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<script>
+/* ================= DATA ================= */
+const CATS = {
+  city:{color:'#B78A34', label:'Cidade / arte'},
+  medieval:{color:'#2F4A3C', label:'Vila medieval'},
+  wine:{color:'#6E2A2A', label:'Vinho'},
+  nature:{color:'#3B6A6D', label:'Termas / natureza'},
+  base:{color:'#242F42', label:'Base / logística'},
+  food:{color:'#C1442E', label:'Comida / mercado'},
+  shopping:{color:'#8E5AA6', label:'Compras'}
+};
+
+/* PLACES: real lat/lng. level 'main' = always visible; 'detail' = only visible zoomed in */
+const PLACES = {
+  fco:        {name:'Aeroporto FCO', cat:'base', lat:41.8003, lng:12.2389, level:'main', blurb:'Fiumicino, Roma. Chegada dia 8/out às 14h25 (voo BA550) e partida dia 18/out às 07h35 (voo IB658).'},
+  castellina: {name:'Airbnb — Il Granaio', cat:'base', lat:43.4841, lng:11.2173, level:'main', blurb:'Base da família na Toscana. Fica na zona rural entre Poggibonsi e Castellina in Chianti (perto da vinícola Melini), não no centro da cidade — ~5-6 km a oeste. Airbnb oferecido por Carla, 8 noites (8–16/out).', fly:'castellina'},
+  florence:   {name:'Florença', cat:'city', lat:43.7710, lng:11.2555, level:'main', blurb:'Galleria degli Uffizi, Accademia (David), Duomo, Mercato Centrale, Officina Santa Maria Novella e lojas na Piazza della Repubblica. Dê zoom para ver os pontos exatos.', fly:'florence'},
+  siena:      {name:'Siena', cat:'city', lat:43.3188, lng:11.3308, level:'main', blurb:'Piazza del Campo, Duomo di Siena, Basilica di San Domenico — 20–30 min de carro de Castellina. Dê zoom para ver os pontos exatos.', fly:'siena'},
+  sangimignano:{name:'San Gimignano', cat:'medieval', lat:43.4674, lng:11.0431, level:'main', blurb:'Torres medievais e Piazza della Cisterna, famosa pelo gelato Dondoli. Dê zoom para ver os pontos exatos.', fly:'sangimignano'},
+  volterra:   {name:'Volterra', cat:'medieval', lat:43.4014, lng:10.8601, level:'main', blurb:'Piazza dei Priori e artesanato em alabastro, na sequência de San Gimignano. Dê zoom para ver os pontos exatos.', fly:'volterra'},
+  chianti_winery:{name:'Vinícola alternativa no Chianti', cat:'wine', lat:43.5825, lng:11.3050, level:'main', blurb:'Opção alternativa à Vinícola Tiezzi, para quem quiser uma degustação sem sair de perto de casa — 15–20 min de Castellina. Não faz parte do roteiro fixo.', alt:true},
+  montalcino: {name:'Montalcino', cat:'wine', lat:43.0567, lng:11.4897, level:'main', blurb:'Vinícola Tiezzi, Fortezza e centro histórico — 69 km, 1h10–1h15 de Castellina. Dê zoom para ver os pontos exatos.', fly:'montalcino'},
+  pienza:     {name:'Pienza', cat:'medieval', lat:43.0782, lng:11.6789, level:'main', blurb:'Piazza Pio II, cidade ideal renascentista, pecorino local e vista do Val d\'Orcia. Dê zoom para ver os pontos exatos.', fly:'pienza'},
+  montepulciano:{name:'Montepulciano', cat:'wine', lat:43.0930, lng:11.7870, level:'main', blurb:'Piazza Grande e degustação de Vino Nobile. Dê zoom para ver os pontos exatos.', fly:'montepulciano'},
+  bagno_vignoni:{name:'Bagno Vignoni', cat:'nature', lat:43.0334, lng:11.6142, level:'main', blurb:'Piscina termal histórica na praça central (só contemplação) e termas livres na região.'},
+  bagni_san_filippo:{name:'Bagni San Filippo', cat:'nature', lat:42.8814, lng:11.6817, level:'main', blurb:'Termas gratuitas ao ar livre no Fosso Bianco, bem menos concorridas que Saturnia.'},
+  pisa:       {name:'Pisa', cat:'city', lat:43.7230, lng:10.3966, level:'main', blurb:'Piazza dei Miracoli (Torre, Duomo, Battistero) — 103 km, 1h29 de Castellina. Dê zoom para ver os pontos exatos.', fly:'pisa'},
+  livorno:    {name:'Livorno', cat:'nature', lat:43.5482, lng:10.3040, level:'main', blurb:'Terrazza Mascagni e almoço à beira-mar, 20 min além de Pisa. Dê zoom para ver os pontos exatos.', fly:'livorno'},
+  foiano:     {name:'Foiano della Chiana', cat:'medieval', lat:43.2515, lng:11.8235, level:'main', blurb:'Piazza Cavour e almoço leve, a caminho do Lago Trasimeno.'},
+  cortona:    {name:'Cortona', cat:'medieval', lat:43.2748, lng:11.9862, level:'main', blurb:'Piazza della Repubblica — cenário de "Sob o Sol da Toscana".'},
+  trasimeno:  {name:'Lago Trasimeno', cat:'nature', lat:43.1878, lng:12.1345, level:'main', blurb:'Passeio à beira do lago em Passignano, já na Úmbria.'},
+  castiglione_pescaia: {name:'Castiglione della Pescaia', cat:'nature', lat:42.7597, lng:10.8797, level:'main', blurb:'Portinho de pesca charmoso, com centro histórico numa colina de frente pro mar e canal cheio de barcos.'},
+  talamone: {name:'Talamone', cat:'nature', lat:42.5578, lng:11.1439, level:'main', blurb:'Vilarejo fortificado num promontório rochoso, com um castelinho medieval e vista panorâmica do mar.'},
+  orbetello: {name:'Orbetello', cat:'nature', lat:42.4408, lng:11.2114, level:'main', blurb:'Cidade numa lagoa, ótima pra almoço de frutos do mar, com vista do Monte Argentario — dá pra esticar até Porto Santo Stefano.'},
+  santa_severa: {name:'Castello di Santa Severa', cat:'nature', lat:42.0089, lng:11.9611, level:'main', blurb:'Castelo medieval direto na praia — ótimo pra foto e uma caminhada na areia, já pertinho de Roma.'},
+  roma:       {name:'Roma (centro histórico)', cat:'city', lat:41.8960, lng:12.4800, level:'main', blurb:'Coliseu e Fórum por fora, Pantheon, Piazza Navona, Campo de\' Fiori, Fontana di Trevi, La Rinascente e Piazza di Spagna. Dê zoom para ver os pontos exatos.', fly:'roma'},
+
+  /* ---- Florença, detalhe ---- */
+  uffizi:{name:'Galleria degli Uffizi', cat:'city', lat:43.7687, lng:11.2560, level:'detail', blurb:'Piazzale degli Uffizi, 6. Presente nas quatro opções — reservem entrada antecipada.', note:'Nas quatro opções, sempre no dia principal em Florença.'},
+  accademia:{name:'Accademia (David)', cat:'city', lat:43.7768, lng:11.2588, level:'detail', blurb:'Via Ricasoli, 58/60. Abertura às 8h15 para fugir da fila.', note:'Nas quatro opções, logo na abertura do museu.'},
+  duomo_firenze:{name:'Duomo di Firenze', cat:'city', lat:43.7731, lng:11.2560, level:'detail', blurb:'Catedral de Santa Maria del Fiore — visto por fora.', note:'Manhã do Dia 10, na janela livre antes do Uffizi.'},
+  battistero_firenze:{name:'Battistero di San Giovanni', cat:'city', lat:43.7731, lng:11.2549, level:'detail', blurb:'O batistério octogonal ao lado do Duomo, famoso pelas Portas do Paraíso (réplica — as originais estão no Museo dell\'Opera).', note:'Manhã do Dia 10, junto com o Duomo.'},
+  campanile_giotto:{name:'Campanile di Giotto', cat:'city', lat:43.7728, lng:11.2565, level:'detail', blurb:'414 degraus, sem elevador, ~1h de visita, €20/pessoa (duomo.firenze.it) — vista panorâmica de Florença. Giotto Pass exige horário marcado; Brunelleschi Pass permite subir sem horário fixo.', note:'Opcional, pra decidir na hora — Dia 10 (janela livre) ou Dia 8 (dia livre).'},
+  piazza_signoria:{name:'Piazza della Signoria', cat:'city', lat:43.7696, lng:11.2558, level:'detail', blurb:'A praça cívica de Florença, com a Loggia dei Lanzi (estátuas a céu aberto: Perseu de Cellini, Rapto das Sabinas) e o Palazzo Vecchio.', note:'Dia 10, logo na saída do Uffizi.'},
+  mercato_nuovo:{name:'Mercato Nuovo (Il Porcellino)', cat:'shopping', lat:43.7699, lng:11.2536, level:'detail', blurb:'Mercado coberto com o famoso javali de bronze — tradição de esfregar o focinho pra sorte.', note:'Dia 11, a caminho da Ponte Vecchio.'},
+  mercato_centrale:{name:'Mercato Centrale', cat:'food', lat:43.7766, lng:11.2531, level:'detail', blurb:'Piazza del Mercato Centrale, 4 — mercado coberto com dezenas de bancas para almoçar.', note:'Almoço nas quatro opções, no dia do centro histórico.'},
+  apple_store_fi:{name:'Apple Store Firenze', cat:'shopping', lat:43.7714, lng:11.2545, level:'detail', blurb:'Piazza della Repubblica — compra do Apple Watch do Ricardo.', note:'Opções A (dia 3) e D (dia 2).'},
+  santa_maria_novella:{name:'Officina Santa Maria Novella', cat:'shopping', lat:43.7742, lng:11.2472, level:'detail', blurb:'Via della Scala, 16 — perfumaria histórica.', note:'Opções A (dia 3) e D (dia 2).'},
+  giunti_odeon:{name:'Giunti Odeon', cat:'shopping', lat:43.7712, lng:11.2495, level:'detail', blurb:'Piazza degli Strozzi, 2 — livraria/loja.', note:'Opções A (dia 3) e D (dia 2).'},
+  ponte_vecchio:{name:'Ponte Vecchio', cat:'city', lat:43.7680, lng:11.2531, level:'detail', blurb:'A ponte medieval com as joalherias — cartão-postal sobre o Arno.', note:'Opções A e B, no dia extra em Florença.'},
+  palazzo_pitti:{name:'Palazzo Pitti', cat:'city', lat:43.7650, lng:11.2500, level:'detail', blurb:'Palácio e Giardino di Boboli, no Oltrarno.', note:'Opções A e B, no dia extra em Florença.'},
+  piazzale_michelangelo:{name:'Piazzale Michelangelo', cat:'city', lat:43.7629, lng:11.2650, level:'detail', blurb:'O mirante clássico com vista panorâmica de Florença.', note:'Opções A e B, no dia extra em Florença.'},
+  il_papiro_fi:{name:'Il Papiro', cat:'shopping', lat:43.7731, lng:11.2570, level:'detail', blurb:'Papelaria fina florentina — canetas, marca-páginas e cadernos de papel marmorizado.', note:'Sugestão de suvenir, perto do Duomo.'},
+  mercato_san_lorenzo:{name:'Mercato di San Lorenzo', cat:'shopping', lat:43.7757, lng:11.2536, level:'detail', blurb:'Mercado de rua com couro, cachecóis e lembrancinhas — dá pra pechinchar.', note:'Sugestão de compras, ao lado do Mercato Centrale.'},
+  trattoria_sostanza:{name:'Trattoria Sostanza', cat:'food', lat:43.7735, lng:11.2480, level:'detail', blurb:'Trattoria histórica (desde 1869), famosa pelo frango na manteiga e bistecca. Via del Porcellana, 25.', note:'Sugestão de almoço/jantar em Florença.'},
+  antico_vinaio:{name:'All\'Antico Vinaio', cat:'food', lat:43.7686, lng:11.2570, level:'detail', blurb:'A fila é grande, mas os sanduíches (schiacciate) são famosos por bom motivo. Via dei Neri.', note:'Sugestão de almoço rápido em Florença.'},
+
+  /* ---- Roma, detalhe ---- */
+  airbnb_aurelio:{name:'Airbnb — Aurelio', cat:'base', lat:41.9020, lng:12.4090, level:'detail', blurb:'Via Ludovico Micara, 34 — o carro fica estacionado aqui do dia 16 ao 18, fora da ZTL.', note:'Base em Roma nas quatro opções, dias 9 a 11.'},
+  vaticano:{name:'Vaticano (por fora)', cat:'city', lat:41.9022, lng:12.4539, level:'detail', blurb:'Piazza San Pietro e a fachada da Basílica — só visto por fora, sem entrar em nada. Castel Sant\'Angelo fica ali perto.', note:'Manhã do dia 17, logo cedo (8h00), antes do Coliseu.'},
+  colosseo:{name:'Coliseu', cat:'city', lat:41.8902, lng:12.4922, level:'detail', blurb:'Piazza del Colosseo — visto por fora.', note:'Manhã do dia 17, nas quatro opções.'},
+  foro_romano:{name:'Fórum Romano', cat:'city', lat:41.8925, lng:12.4853, level:'detail', blurb:'Via dei Fori Imperiali — visto por fora.', note:'Manhã do dia 17, nas quatro opções.'},
+  pantheon:{name:'Pantheon', cat:'city', lat:41.8986, lng:12.4769, level:'detail', blurb:'Piazza della Rotonda.', note:'Tarde do dia 17, nas quatro opções.'},
+  piazza_navona:{name:'Piazza Navona', cat:'city', lat:41.8992, lng:12.4731, level:'detail', blurb:'Praça histórica no caminho a pé.', note:'Tarde do dia 17, nas quatro opções.'},
+  campo_fiori:{name:'Campo de\' Fiori', cat:'food', lat:41.8955, lng:12.4723, level:'detail', blurb:'Mercado de rua e almoço.', note:'Almoço da tarde do dia 17, nas quatro opções.'},
+  fontana_trevi:{name:'Fontana di Trevi', cat:'city', lat:41.9009, lng:12.4833, level:'detail', blurb:'Fim da caminhada da tarde.', note:'Tarde do dia 17, nas quatro opções.'},
+  rinascente:{name:'La Rinascente', cat:'shopping', lat:41.9010, lng:12.4850, level:'detail', blurb:'Via del Tritone, 61 — compras, a 2 min da Trevi.', note:'Noite do dia 17, nas quatro opções.'},
+  piazza_spagna:{name:'Piazza di Spagna', cat:'city', lat:41.9057, lng:12.4823, level:'detail', blurb:'Ao entardecer, antes de voltar ao Aurelio.', note:'Noite do dia 17, nas quatro opções.'},
+  trattoria_enzo:{name:'Trattoria da Enzo al 29', cat:'food', lat:41.8890, lng:12.4700, level:'detail', blurb:'Clássico de Trastevere — pequeno, sempre cheio, reservem com antecedência.', note:'Sugestão de jantar em Trastevere.'},
+  roscioli:{name:'Roscioli', cat:'food', lat:41.8949, lng:12.4732, level:'detail', blurb:'Deli e restaurante badalado perto de Campo de\' Fiori — carbonara e charcutaria.', note:'Sugestão de almoço/jantar perto de Campo de\' Fiori.'},
+
+  /* ---- Siena, detalhe ---- */
+  piazza_del_campo:{name:'Piazza del Campo', cat:'city', lat:43.3188, lng:11.3308, level:'detail', blurb:'A praça em concha, coração de Siena — palco do Palio.', note:'Manhã do dia de Siena, nas quatro opções.'},
+  duomo_siena:{name:'Duomo di Siena', cat:'city', lat:43.3172, lng:11.3295, level:'detail', blurb:'Catedral gótica com fachada em mármore listrado.', note:'Manhã do dia de Siena, nas quatro opções.'},
+  san_domenico:{name:'Basilica di San Domenico', cat:'city', lat:43.3210, lng:11.3260, level:'detail', blurb:'Basílica gótica com vista sobre a cidade.', note:'Opção A, tarde do dia 4.'},
+  osteria_le_logge:{name:'Osteria Le Logge', cat:'food', lat:43.3180, lng:11.3315, level:'detail', blurb:'Clássica, charmosa, a poucos passos da Piazza del Campo.', note:'Sugestão de almoço/jantar em Siena.'},
+
+  /* ---- Pisa, detalhe ---- */
+  torre_pisa:{name:'Torre di Pisa', cat:'city', lat:43.7230, lng:10.3966, level:'detail', blurb:'A Torre Inclinada — o cartão-postal da Piazza dei Miracoli.', note:'Nas quatro opções, no dia de Pisa.'},
+  duomo_pisa:{name:'Duomo di Pisa', cat:'city', lat:43.7232, lng:10.3956, level:'detail', blurb:'Catedral ao lado da Torre, na mesma praça.', note:'Nas quatro opções, no dia de Pisa.'},
+  battistero_pisa:{name:'Battistero', cat:'city', lat:43.7228, lng:10.3936, level:'detail', blurb:'Batistério circular, o maior da Itália.', note:'Nas quatro opções, no dia de Pisa.'},
+  camposanto:{name:'Camposanto Monumentale', cat:'city', lat:43.7237, lng:10.3953, level:'detail', blurb:'Cemitério monumental coberto — ótimo plano B em dia de chuva.', note:'Opcional, nas quatro opções.'},
+  il_montino:{name:'Il Montino', cat:'food', lat:43.7180, lng:10.4010, level:'detail', blurb:'Famoso pela cecina e focaccia — bem popular entre os pisanos.', note:'Sugestão de almoço em Pisa.'},
+
+  /* ---- San Gimignano, detalhe ---- */
+  torre_grossa:{name:'Torre Grossa', cat:'medieval', lat:43.4676, lng:11.0433, level:'detail', blurb:'A torre mais alta de San Gimignano, com vista sobre a Toscana.', note:'Opções B e D, no dia de San Gimignano.'},
+  piazza_cisterna:{name:'Piazza della Cisterna', cat:'medieval', lat:43.4672, lng:11.0435, level:'detail', blurb:'Praça central triangular, cercada de torres medievais.', note:'Opções B e D, no dia de San Gimignano.'},
+  gelateria_dondoli:{name:'Gelateria Dondoli', cat:'food', lat:43.4672, lng:11.0437, level:'detail', blurb:'Piazza della Cisterna, 4 — várias vezes premiada em campeonatos mundiais de gelato.', note:'Já faz parte do roteiro nas opções B e D.'},
+
+  /* ---- Volterra, detalhe ---- */
+  piazza_priori:{name:'Piazza dei Priori', cat:'medieval', lat:43.4014, lng:10.8601, level:'detail', blurb:'Praça principal de Volterra, cercada de palazzi medievais.', note:'Opção B, dia 3.'},
+  alabastro_volterra:{name:'Artesanato em alabastro', cat:'shopping', lat:43.4010, lng:10.8610, level:'detail', blurb:'Ateliês de artesãos que esculpem o alabastro local.', note:'Opção B, dia 3.'},
+
+  /* ---- Montalcino, detalhe ---- */
+  vinicola_tiezzi:{name:'Vinícola Tiezzi', cat:'wine', lat:43.0560, lng:11.4900, level:'detail', blurb:'A vinícola da família — visita e degustação de Brunello di Montalcino.', note:'Nas quatro opções, no dia de Montalcino.'},
+  fortezza_montalcino:{name:'Fortezza di Montalcino', cat:'wine', lat:43.0570, lng:11.4894, level:'detail', blurb:'Fortaleza medieval com enoteca dentro dos muros.', note:'Nas quatro opções, no dia de Montalcino.'},
+  centro_montalcino:{name:'Centro storico', cat:'wine', lat:43.0565, lng:11.4910, level:'detail', blurb:'Ruas estreitas com enotecas e vista sobre o Val d\'Orcia.', note:'Nas quatro opções, no dia de Montalcino.'},
+  enoteca_fortezza:{name:'Enoteca la Fortezza', cat:'food', lat:43.0571, lng:11.4893, level:'detail', blurb:'Dentro da própria Fortezza — ótima para degustar Brunello num cenário histórico.', note:'Sugestão de degustação em Montalcino.'},
+  re_di_macchia:{name:'Re di Macchia', cat:'food', lat:43.0563, lng:11.4905, level:'detail', blurb:'Muito bem avaliado, cozinha toscana caseira.', note:'Sugestão de almoço/jantar em Montalcino.'},
+
+  /* ---- Pienza, detalhe ---- */
+  piazza_pio_ii:{name:'Piazza Pio II', cat:'medieval', lat:43.0782, lng:11.6789, level:'detail', blurb:'A "cidade ideal" renascentista, com vista sobre o Val d\'Orcia.', note:'Opções B e C.'},
+  vista_val_dorcia:{name:'Vista do Val d\'Orcia', cat:'nature', lat:43.0775, lng:11.6800, level:'detail', blurb:'Mirante clássico da paisagem do Val d\'Orcia.', note:'Opções B e C.'},
+  trattoria_latte_luna:{name:'Trattoria Latte di Luna', cat:'food', lat:43.0785, lng:11.6795, level:'detail', blurb:'Trattoria caseira e charmosa, Via San Carlo 2/4.', note:'Sugestão de almoço/jantar em Pienza.'},
+
+  /* ---- Montepulciano, detalhe ---- */
+  piazza_grande:{name:'Piazza Grande', cat:'wine', lat:43.0930, lng:11.7870, level:'detail', blurb:'Praça principal, cercada de palazzi e cantinas de Vino Nobile.', note:'Opção C, dia 5.'},
+  cantina_nobile:{name:'Cantina de Vino Nobile', cat:'wine', lat:43.0925, lng:11.7880, level:'detail', blurb:'Adegas escavadas na rocha, abertas para degustação.', note:'Opção C, dia 5.'},
+
+  /* ---- Livorno, detalhe ---- */
+  terrazza_mascagni:{name:'Terrazza Mascagni', cat:'nature', lat:43.5482, lng:10.3040, level:'detail', blurb:'Calçadão à beira-mar com piso em xadrez preto e branco.', note:'Opções A, C e D.'},
+  mercato_livorno:{name:'Mercato di Livorno', cat:'food', lat:43.5486, lng:10.3096, level:'detail', blurb:'Mercado coberto para almoço rápido à beira-mar.', note:'Opções A, C e D.'}
+};
+
+/* alvos de zoom (centro + nível) usados pelo seletor e pelo botão "ver pontos exatos" */
+const ZOOM_TARGETS = {
+  castellina:[43.4841,11.2173,15],
+  florence:[43.7710,11.2555,16],
+  siena:[43.3188,11.3308,16],
+  pisa:[43.7230,10.3966,16],
+  sangimignano:[43.4674,11.0433,16],
+  volterra:[43.4012,10.8605,16],
+  montalcino:[43.0565,11.4898,16],
+  pienza:[43.0780,11.6795,16],
+  montepulciano:[43.0928,11.7875,16],
+  livorno:[43.5484,10.3060,15],
+  roma:[41.8960,12.4800,15]
+};
+const REGION_BOUNDS = [[41.75,10.25],[43.85,12.55]];
+
+
+const OPTIONS = {
+  A:{
+    label:'Clássica Equilibrada',
+    desc:'Equilíbrio entre passeio e descanso — o plano principal. Guardem B, C e D como planos B para trocar um dia específico se chover ou surgir algum imprevisto.',
+    path:['fco','castellina','sangimignano','volterra','florence','siena','montalcino','pienza','foiano','trasimeno','pisa','livorno','castellina','castiglione_pescaia','talamone','orbetello','santa_severa','roma','fco'],
+    days:[
+      {n:1,t:'Chegada',wake:'—',leave:'—',manha:['07/10 (quarta): embarque em São Paulo (GRU), voo BA246 às 15h30.'],tarde:['08/10 (quinta): chegada em Roma às 14h25 (voo BA550).','Retirada do carro alugado no aeroporto.','Estrada até Castellina in Chianti — ~230 km, 2h40–3h, ~€28 de combustível.'],noite:['Chegada a Castellina in Chianti, por volta das 17h30.','Compras no mercado local + jantar leve em casa.']},
+      {n:2,t:'San Gimignano → Volterra',wake:'7h15',leave:'7h45',manha:['Carro até San Gimignano: ~18 km, ~20-25 min, ~€2 (estimativa — o Airbnb fica mais perto de San Gimignano do que do centro de Castellina, confirmar rota exata no GPS) — chegada por volta das 8h10.','Torres medievais, Piazza della Cisterna, gelato na Dondoli.'],tarde:['Saída para Volterra por volta das 12h00: 30 km, 40 min, ~€4 — chegada ~12h40.','Piazza dei Priori, artesanato em alabastro.'],noite:['Volta a Castellina: 55 km, 1h, saindo ~17h00, chegada ~18h00.','Jantar em Castellina.']},
+      {n:3,t:'Florença — museus (ingressos já comprados)',wake:'5h15',leave:'5h45',manha:['Carro até Poggibonsi (~15 min) e deixar estacionado na estação.','Trem das 06h06, chega 07h23 em Firenze S.M.N.','Accademia (David) às 8h15 — ingresso já reservado.','Janela livre até 11h15: Duomo (Cattedrale di Santa Maria del Fiore) por fora e Battistero di San Giovanni (as famosas Portas do Paraíso) — os dois ficam a caminho do centro, perto da Accademia.','Opcional, pra decidir na hora: subir o Campanile di Giotto (414 degraus, ~1h, €20/pessoa, duomo.firenze.it) — só dá pra fazer sem horário marcado com o Brunelleschi Pass (mais completo, inclui a Cúpula); o Giotto Pass avulso exige reserva de horário.'],tarde:['Uffizi às 11h15 — ingresso já reservado (~2h de visita, até ~13h15).','Piazza della Signoria e a Loggia dei Lanzi, bem na saída do Uffizi — estátuas a céu aberto (Perseu de Cellini, Rapto das Sabinas), ~20-30 min.','Almoço no Mercato Centrale por volta das 14h00 (~€15–20/pessoa).','Compras: Apple Store, Sephora, Kiko Milano e Giunti Odeon — todos a poucos minutos a pé um do outro.'],noite:['Volta: trem até Poggibonsi (1h10–1h15) + carro (~15 min).','Jantar leve em Castellina.']},
+      {n:4,t:'Florença + feiras',wake:'7h15',leave:'7h45',manha:['Carro até Poggibonsi (~15 min).','Trem das 08h42, chega 09h52 em Firenze S.M.N.','Domingo é o 2º do mês — dia certo do Mercato di Santo Spirito (antiguidades e roupas vintage, Piazza Santo Spirito, 9h–19h).'],tarde:['A caminho da Ponte Vecchio: Mercato Nuovo, pra ver o javali de bronze (Il Porcellino) — tradição de esfregar o focinho pra sorte.','Ponte Vecchio e passeio pelo Oltrarno, por volta das 14h00.','Se sobrar tempo: Palazzo Pitti e Giardino di Boboli, ali do lado.','Sem compras ainda — deixem os eletrônicos para o fim do dia, assim não carregam a caixa pela cidade a tarde toda.'],noite:['Eletrônicos por volta das 18h00 — MediaWorld (Novoli, tram T2) ou Unieuro (Sesto Fiorentino, trem regional): Nintendo Switch 2 €468 e PlayStation 5 €649,99 nas duas, mais uma mala nova de ~23 kg (a partir de ~€35–40).','As duas fecham às 20h — cheguem até ~19h para não ficar em cima da hora. Se não der tempo, o Dia 8 é plano B.','Depois: trem de volta até Poggibonsi (1h10–1h15) + carro (~15 min) — chegada um pouco mais tarde que nos outros dias.']},
+      {n:5,t:'Siena → Montalcino/Tiezzi → Val d\'Orcia',wake:'7h00',leave:'8h00',manha:['Carro até Siena: ~27 km, ~30-35 min, ~€3 (estimativa — o Airbnb fica um pouco mais longe de Siena do que o centro de Castellina, confirmar rota exata no GPS) — chegada por volta das 8h35.','Siena com calma até ~12h30 (~4h): Piazza del Campo, Duomo, Basilica di San Domenico.'],tarde:['Almoço em Siena, ~12h30–13h30.','Saída para Montalcino às 13h30: ~45 km, ~50 min — chegada ~14h20.','Tempo livre em Montalcino (Fortezza, centro histórico) até 15h30.','15h30–17h00: degustação na Vinícola Tiezzi (confirmar dia/horário com a família com antecedência).'],noite:['Carro até Pienza (Val d\'Orcia) às 17h00: ~15 min — chegada ~17h15.','Pienza ao entardecer: Piazza Pio II e a vista do vale com o pôr do sol (~18h15 em outubro).','Volta direto a Castellina às 18h15: ~1h25 — chegada ~19h40, jantar em casa.']},
+      {n:6,t:'Foiano della Chiana → Lago Trasimeno',wake:'7h15',leave:'8h15',manha:['Carro até Foiano della Chiana: 60 km, 55 min–1h, ~€7 — chegada por volta das 9h15.','Piazza Cavour, almoço leve por volta das 12h00–13h00 (~€12–15/pessoa).'],tarde:['Saída para o Lago Trasimeno por volta das 13h30: 30 km, 35 min, ~€4 — chegada ~14h05.','Passeio à beira do lago em Passignano.','Se der tempo: Cortona fica ~20 min do lago — Piazza della Repubblica, cenário de "Sob o Sol da Toscana".'],noite:['Volta a Castellina: saindo ~17h30, 90 km, 1h20, ~€11 — chegada ~18h50.']},
+      {n:7,t:'Pisa → Livorno',wake:'8h00',leave:'8h30',manha:['Carro até Pisa: 103 km, 1h29, ~€12 — saindo às 8h30, chegada por volta das 10h00.','Torre di Pisa reservada para as 10h45 — só o ingresso da Torre, €20/pessoa (já comprado).','O Duomo entra de graça junto com o ingresso da Torre, sem horário marcado.'],tarde:['Depois da Torre (~30 min de visita), saída para Livorno por volta das 12h30: 20 km, 25 min, ~€2 — chegada ~12h55.','Almoço em Livorno por volta das 13h00–14h30: peixe fresco no Mercato del Pesce ou num bar/mercado local perto da Terrazza Mascagni (~€15–20/pessoa).','Terrazza Mascagni — calçadão com piso em xadrez preto e branco.','Venezia Nuova — bairro dos canais, tipo uma "pequena Veneza", com passeio a pé pelas pontes (ou passeio de barco, se quiserem).'],noite:['Volta a Castellina: saindo por volta das 17h00, 120 km, 1h45, ~€14 — chegada ~18h45.','Jantar leve em casa.']},
+      {n:8,t:'Dia livre — decidir na hora',wake:'Livre',leave:'Livre',manha:['Sem plano fixo pela manhã — decidam pelo clima e pelo ânimo do grupo.'],tarde:['Plano B eletrônicos: se não deu tempo de comprar os consoles e a mala nova no Dia 4, hoje é a folga pra voltar — MediaWorld (Novoli) ou Unieuro (Sesto Fiorentino), mesmos preços e trajetos de trem/tram de antes.','Outras opções para o dia: mais um dia em Florença (Palazzo Pitti, Boboli, Piazzale Michelangelo, com o passeio de Ferrari opcional saindo de lá, tuscanytestdrive.com a partir de €150; ou subir o Campanile di Giotto, €20, se não deu tempo antes), ou San Gimignano/Volterra de novo sem pressa.'],noite:['Sugestão: jantar em Siena — o passeio noturno que não coube no Dia 5, com a Piazza del Campo iluminada. Volta a Castellina (20 km, 25-30 min).','Última noite na Toscana — malas.']},
+      {n:9,t:'Toscana → Roma (pelo litoral)',wake:'8h00',leave:'9h30',manha:['Checkout do Airbnb, últimas malas.','Saída às 9h30 pela estrada do litoral (via Grosseto): SS223 + Via Aurelia (SS1) — ~3h27 de estrada ao todo, só ~40 min a mais que a rota direta (2h47).','Castiglione della Pescaia, por volta das 11h00 (~50 min): portinho de pesca charmoso, centro histórico numa colina de frente pro mar, canal cheio de barcos.','Talamone, por volta das 12h15 (~35 min): vilarejo fortificado num promontório rochoso, castelinho medieval, vista panorâmica do mar.'],tarde:['Orbetello, por volta das 13h15: almoço de frutos do mar, e com tempo de sobra, esticar até Porto Santo Stefano no Monte Argentario — marina, penhascos, vistas (~1h45 ao todo).','Castello di Santa Severa, por volta das 15h45 (~45 min): castelo medieval direto na praia — ótimo pra foto e uma caminhada na areia.','Chegada no Airbnb (Aurelio) por volta das 17h30, fim da tarde — check-in e um tempo pra descansar da estrada.'],noite:['Até Trastevere: metrô até Valle Aurelia + trem FL3 direto até a Estação Trastevere (~6 min de trem) + ~10 min a pé até a Piazza Santa Maria in Trastevere — uns 30 min ao todo. Saída por volta das 19h00.','Jantar em trattoria por volta das 19h30–21h00 (~€20–25/pessoa).','Depois do jantar: Fontana di Trevi à noite — atravessando o Ponte Sisto/Garibaldi até o centro histórico, ~20-25 min a pé de Trastevere. Bem mais vazia e ainda mais bonita iluminada.','Desde fev/2026 o perímetro interno é pago: €2/pessoa, das 9h às 22h, em fontanaditrevi.roma.it. Depois das 22h dá pra ver de graça, mas só de fora da cerca.']},
+      {n:10,t:'Roma',wake:'7h00',leave:'7h30',manha:['Vaticano por fora, às 8h00 (~15-20 min de metrô/ônibus do Airbnb — não vamos entrar em nada, só ver de fora).','Piazza San Pietro, fachada da Basílica de São Pedro; se sobrar tempo, Castel Sant\'Angelo e a Ponte Sant\'Angelo ali perto.','Saída para o Coliseu por volta das 9h45: Metrô A até Ottaviano → troca em Termini → Linha B até Colosseo (~30-40 min).','Chegada por volta das 11h15 — Ricardo e Erika (que já foram ao Coliseu antes) ficam no Rione Monti; Isabella e Thiago entram com o ingresso das 11h45.','11h45: Coliseu, Fórum Romano e Palatino (conferir se o ingresso inclui os três).'],tarde:['Reencontro de todo mundo por volta das 15h00 (fim da visita ao Coliseu/Fórum/Palatino).','Almoço por volta das 15h00–16h00.','Tempo livre até 17h45: Piazza Navona, Campo de\' Fiori, ou só descansar.'],noite:['18h00: Pantheon — €7/pessoa, reservado com antecedência em portale.museiitaliani.it (fila física pode passar de 1h, melhor evitar).','A Fontana di Trevi já foi vista na noite do dia 16 — se quiserem rever à luz do dia, é opcional.','Compras na La Rinascente (2 min da Trevi) por volta das 19h00.','Piazza di Spagna ao entardecer, por volta das 19h30 — a estação "Spagna" é da própria Linha A, direto até Baldo degli Ubaldi/Cornelia, sem troca de linha (~20-25 min).']},
+      {n:11,t:'Partida',wake:'3h15',leave:'3h45',manha:['Pegar o carro estacionado, dirigir até o FCO (~30–40 min sem trânsito, ~€4), devolver na locadora.','Voo 07h35.'],tarde:['Em voo/conexão em Madri.'],noite:['Chegada a São Paulo 20h20 (horário local).']}
+    ]
+  },
+  B:{
+    label:'Plano B — Val d\'Orcia primeiro',
+    desc:'Os mesmos lugares da Opção A, só em outra ordem — Siena/Montalcino/Val d\'Orcia logo no início. Florença (dias 10 e 11/10) e Pisa (dia 14/10) já têm ingressos comprados e ficam fixos em todas as opções.',
+    path:['fco','castellina','siena','montalcino','pienza','florence','foiano','trasimeno','sangimignano','volterra','pisa','livorno','castellina','castiglione_pescaia','talamone','orbetello','santa_severa','roma','fco'],
+    days:[
+      {n:1,t:'Chegada',wake:'—',leave:'—',manha:['07/10 (quarta): embarque em São Paulo (GRU), voo BA246 às 15h30.'],tarde:['08/10 (quinta): chegada em Roma às 14h25 (voo BA550).','Retirada do carro alugado no aeroporto.','Estrada até Castellina in Chianti — ~230 km, 2h40–3h, ~€28 de combustível.'],noite:['Chegada a Castellina in Chianti, por volta das 17h30.','Compras no mercado local + jantar leve em casa.']},
+      {n:2,t:'Siena → Montalcino/Tiezzi → Val d\'Orcia',wake:'7h00',leave:'8h00',manha:['Carro até Siena: ~27 km, ~30-35 min, ~€3 (estimativa — o Airbnb fica um pouco mais longe de Siena do que o centro de Castellina, confirmar rota exata no GPS) — chegada por volta das 8h35.','Siena com calma até ~12h30 (~4h): Piazza del Campo, Duomo, Basilica di San Domenico.'],tarde:['Almoço em Siena, ~12h30–13h30.','Saída para Montalcino às 13h30: ~45 km, ~50 min — chegada ~14h20.','Tempo livre em Montalcino (Fortezza, centro histórico) até 15h30.','15h30–17h00: degustação na Vinícola Tiezzi (confirmar dia/horário com a família com antecedência).'],noite:['Carro até Pienza (Val d\'Orcia) às 17h00: ~15 min — chegada ~17h15.','Pienza ao entardecer: Piazza Pio II e a vista do vale com o pôr do sol (~18h15 em outubro).','Volta direto a Castellina às 18h15: ~1h25 — chegada ~19h40, jantar em casa.']},
+      {n:3,t:'Florença — museus (ingressos já comprados)',wake:'5h15',leave:'5h45',manha:['Carro até Poggibonsi (~15 min) e deixar estacionado na estação.','Trem das 06h06, chega 07h23 em Firenze S.M.N.','Accademia (David) às 8h15 — ingresso já reservado.','Janela livre até 11h15: Duomo (Cattedrale di Santa Maria del Fiore) por fora e Battistero di San Giovanni (as famosas Portas do Paraíso) — os dois ficam a caminho do centro, perto da Accademia.','Opcional, pra decidir na hora: subir o Campanile di Giotto (414 degraus, ~1h, €20/pessoa, duomo.firenze.it) — só dá pra fazer sem horário marcado com o Brunelleschi Pass (mais completo, inclui a Cúpula); o Giotto Pass avulso exige reserva de horário.'],tarde:['Uffizi às 11h15 — ingresso já reservado (~2h de visita, até ~13h15).','Piazza della Signoria e a Loggia dei Lanzi, bem na saída do Uffizi — estátuas a céu aberto (Perseu de Cellini, Rapto das Sabinas), ~20-30 min.','Almoço no Mercato Centrale por volta das 14h00 (~€15–20/pessoa).','Compras: Apple Store, Sephora, Kiko Milano e Giunti Odeon — todos a poucos minutos a pé um do outro.'],noite:['Volta: trem até Poggibonsi (1h10–1h15) + carro (~15 min).','Jantar leve em Castellina.']},
+      {n:4,t:'Florença + feiras',wake:'7h15',leave:'7h45',manha:['Carro até Poggibonsi (~15 min).','Trem das 08h42, chega 09h52 em Firenze S.M.N.','Domingo é o 2º do mês — dia certo do Mercato di Santo Spirito (antiguidades e roupas vintage, Piazza Santo Spirito, 9h–19h).'],tarde:['A caminho da Ponte Vecchio: Mercato Nuovo, pra ver o javali de bronze (Il Porcellino) — tradição de esfregar o focinho pra sorte.','Ponte Vecchio e passeio pelo Oltrarno, por volta das 14h00.','Se sobrar tempo: Palazzo Pitti e Giardino di Boboli, ali do lado.','Sem compras ainda — deixem os eletrônicos para o fim do dia, assim não carregam a caixa pela cidade a tarde toda.'],noite:['Eletrônicos por volta das 18h00 — MediaWorld (Novoli, tram T2) ou Unieuro (Sesto Fiorentino, trem regional): Nintendo Switch 2 €468 e PlayStation 5 €649,99 nas duas, mais uma mala nova de ~23 kg (a partir de ~€35–40).','As duas fecham às 20h — cheguem até ~19h para não ficar em cima da hora. Se não der tempo, o Dia 8 é plano B.','Depois: trem de volta até Poggibonsi (1h10–1h15) + carro (~15 min) — chegada um pouco mais tarde que nos outros dias.']},
+      {n:5,t:'Foiano della Chiana → Lago Trasimeno',wake:'7h15',leave:'8h15',manha:['Carro até Foiano della Chiana: 60 km, 55 min–1h, ~€7 — chegada por volta das 9h15.','Piazza Cavour, almoço leve por volta das 12h00–13h00 (~€12–15/pessoa).'],tarde:['Saída para o Lago Trasimeno por volta das 13h30: 30 km, 35 min, ~€4 — chegada ~14h05.','Passeio à beira do lago em Passignano.','Se der tempo: Cortona fica ~20 min do lago — Piazza della Repubblica, cenário de "Sob o Sol da Toscana".'],noite:['Volta a Castellina: saindo ~17h30, 90 km, 1h20, ~€11 — chegada ~18h50.']},
+      {n:6,t:'San Gimignano → Volterra',wake:'7h15',leave:'7h45',manha:['Carro até San Gimignano: ~18 km, ~20-25 min, ~€2 (estimativa — o Airbnb fica mais perto de San Gimignano do que do centro de Castellina, confirmar rota exata no GPS) — chegada por volta das 8h10.','Torres medievais, Piazza della Cisterna, gelato na Dondoli.'],tarde:['Saída para Volterra por volta das 12h00: 30 km, 40 min, ~€4 — chegada ~12h40.','Piazza dei Priori, artesanato em alabastro.'],noite:['Volta a Castellina: 55 km, 1h, saindo ~17h00, chegada ~18h00.','Jantar em Castellina.']},
+      {n:7,t:'Pisa → Livorno',wake:'8h00',leave:'8h30',manha:['Carro até Pisa: 103 km, 1h29, ~€12 — saindo às 8h30, chegada por volta das 10h00.','Torre di Pisa reservada para as 10h45 — só o ingresso da Torre, €20/pessoa (já comprado).','O Duomo entra de graça junto com o ingresso da Torre, sem horário marcado.'],tarde:['Depois da Torre (~30 min de visita), saída para Livorno por volta das 12h30: 20 km, 25 min, ~€2 — chegada ~12h55.','Almoço em Livorno por volta das 13h00–14h30: peixe fresco no Mercato del Pesce ou num bar/mercado local perto da Terrazza Mascagni (~€15–20/pessoa).','Terrazza Mascagni — calçadão com piso em xadrez preto e branco.','Venezia Nuova — bairro dos canais, tipo uma "pequena Veneza", com passeio a pé pelas pontes (ou passeio de barco, se quiserem).'],noite:['Volta a Castellina: saindo por volta das 17h00, 120 km, 1h45, ~€14 — chegada ~18h45.','Jantar leve em casa.']},
+      {n:8,t:'Dia livre — decidir na hora',wake:'Livre',leave:'Livre',manha:['Sem plano fixo pela manhã — decidam pelo clima e pelo ânimo do grupo.'],tarde:['Plano B eletrônicos: se não deu tempo de comprar os consoles e a mala nova no Dia 4, hoje é a folga pra voltar — MediaWorld (Novoli) ou Unieuro (Sesto Fiorentino), mesmos preços e trajetos de trem/tram de antes.','Outras opções para o dia: mais um dia em Florença (Palazzo Pitti, Boboli, Piazzale Michelangelo, com o passeio de Ferrari opcional saindo de lá, tuscanytestdrive.com a partir de €150; ou subir o Campanile di Giotto, €20, se não deu tempo antes), ou San Gimignano/Volterra de novo sem pressa.'],noite:['Sugestão: jantar em Siena — o passeio noturno que não coube no Dia 5, com a Piazza del Campo iluminada. Volta a Castellina (20 km, 25-30 min).','Última noite na Toscana — malas.']},
+      {n:9,t:'Toscana → Roma (pelo litoral)',wake:'8h00',leave:'9h30',manha:['Checkout do Airbnb, últimas malas.','Saída às 9h30 pela estrada do litoral (via Grosseto): SS223 + Via Aurelia (SS1) — ~3h27 de estrada ao todo, só ~40 min a mais que a rota direta (2h47).','Castiglione della Pescaia, por volta das 11h00 (~50 min): portinho de pesca charmoso, centro histórico numa colina de frente pro mar, canal cheio de barcos.','Talamone, por volta das 12h15 (~35 min): vilarejo fortificado num promontório rochoso, castelinho medieval, vista panorâmica do mar.'],tarde:['Orbetello, por volta das 13h15: almoço de frutos do mar, e com tempo de sobra, esticar até Porto Santo Stefano no Monte Argentario — marina, penhascos, vistas (~1h45 ao todo).','Castello di Santa Severa, por volta das 15h45 (~45 min): castelo medieval direto na praia — ótimo pra foto e uma caminhada na areia.','Chegada no Airbnb (Aurelio) por volta das 17h30, fim da tarde — check-in e um tempo pra descansar da estrada.'],noite:['Até Trastevere: metrô até Valle Aurelia + trem FL3 direto até a Estação Trastevere (~6 min de trem) + ~10 min a pé até a Piazza Santa Maria in Trastevere — uns 30 min ao todo. Saída por volta das 19h00.','Jantar em trattoria por volta das 19h30–21h00 (~€20–25/pessoa).','Depois do jantar: Fontana di Trevi à noite — atravessando o Ponte Sisto/Garibaldi até o centro histórico, ~20-25 min a pé de Trastevere. Bem mais vazia e ainda mais bonita iluminada.','Desde fev/2026 o perímetro interno é pago: €2/pessoa, das 9h às 22h, em fontanaditrevi.roma.it. Depois das 22h dá pra ver de graça, mas só de fora da cerca.']},
+      {n:10,t:'Roma',wake:'7h00',leave:'7h30',manha:['Vaticano por fora, às 8h00 (~15-20 min de metrô/ônibus do Airbnb — não vamos entrar em nada, só ver de fora).','Piazza San Pietro, fachada da Basílica de São Pedro; se sobrar tempo, Castel Sant\'Angelo e a Ponte Sant\'Angelo ali perto.','Saída para o Coliseu por volta das 9h45: Metrô A até Ottaviano → troca em Termini → Linha B até Colosseo (~30-40 min).','Chegada por volta das 11h15 — Ricardo e Erika (que já foram ao Coliseu antes) ficam no Rione Monti; Isabella e Thiago entram com o ingresso das 11h45.','11h45: Coliseu, Fórum Romano e Palatino (conferir se o ingresso inclui os três).'],tarde:['Reencontro de todo mundo por volta das 15h00 (fim da visita ao Coliseu/Fórum/Palatino).','Almoço por volta das 15h00–16h00.','Tempo livre até 17h45: Piazza Navona, Campo de\' Fiori, ou só descansar.'],noite:['18h00: Pantheon — €7/pessoa, reservado com antecedência em portale.museiitaliani.it (fila física pode passar de 1h, melhor evitar).','A Fontana di Trevi já foi vista na noite do dia 16 — se quiserem rever à luz do dia, é opcional.','Compras na La Rinascente (2 min da Trevi) por volta das 19h00.','Piazza di Spagna ao entardecer, por volta das 19h30 — a estação "Spagna" é da própria Linha A, direto até Baldo degli Ubaldi/Cornelia, sem troca de linha (~20-25 min).']},
+      {n:11,t:'Partida',wake:'3h15',leave:'3h45',manha:['Pegar o carro estacionado, dirigir até o FCO (~30–40 min sem trânsito, ~€4), devolver na locadora.','Voo 07h35.'],tarde:['Em voo/conexão em Madri.'],noite:['Chegada a São Paulo 20h20 (horário local).']}
+    ]
+  },
+  C:{
+    label:'Plano C — Foiano/Trasimeno primeiro',
+    desc:'Os mesmos lugares da Opção A, só em outra ordem — Foiano/Trasimeno logo no início. Florença (dias 10 e 11/10) e Pisa (dia 14/10) já têm ingressos comprados e ficam fixos em todas as opções.',
+    path:['fco','castellina','foiano','trasimeno','florence','sangimignano','volterra','siena','montalcino','pienza','pisa','livorno','castellina','castiglione_pescaia','talamone','orbetello','santa_severa','roma','fco'],
+    days:[
+      {n:1,t:'Chegada',wake:'—',leave:'—',manha:['07/10 (quarta): embarque em São Paulo (GRU), voo BA246 às 15h30.'],tarde:['08/10 (quinta): chegada em Roma às 14h25 (voo BA550).','Retirada do carro alugado no aeroporto.','Estrada até Castellina in Chianti — ~230 km, 2h40–3h, ~€28 de combustível.'],noite:['Chegada a Castellina in Chianti, por volta das 17h30.','Compras no mercado local + jantar leve em casa.']},
+      {n:2,t:'Foiano della Chiana → Lago Trasimeno',wake:'7h15',leave:'8h15',manha:['Carro até Foiano della Chiana: 60 km, 55 min–1h, ~€7 — chegada por volta das 9h15.','Piazza Cavour, almoço leve por volta das 12h00–13h00 (~€12–15/pessoa).'],tarde:['Saída para o Lago Trasimeno por volta das 13h30: 30 km, 35 min, ~€4 — chegada ~14h05.','Passeio à beira do lago em Passignano.','Se der tempo: Cortona fica ~20 min do lago — Piazza della Repubblica, cenário de "Sob o Sol da Toscana".'],noite:['Volta a Castellina: saindo ~17h30, 90 km, 1h20, ~€11 — chegada ~18h50.']},
+      {n:3,t:'Florença — museus (ingressos já comprados)',wake:'5h15',leave:'5h45',manha:['Carro até Poggibonsi (~15 min) e deixar estacionado na estação.','Trem das 06h06, chega 07h23 em Firenze S.M.N.','Accademia (David) às 8h15 — ingresso já reservado.','Janela livre até 11h15: Duomo (Cattedrale di Santa Maria del Fiore) por fora e Battistero di San Giovanni (as famosas Portas do Paraíso) — os dois ficam a caminho do centro, perto da Accademia.','Opcional, pra decidir na hora: subir o Campanile di Giotto (414 degraus, ~1h, €20/pessoa, duomo.firenze.it) — só dá pra fazer sem horário marcado com o Brunelleschi Pass (mais completo, inclui a Cúpula); o Giotto Pass avulso exige reserva de horário.'],tarde:['Uffizi às 11h15 — ingresso já reservado (~2h de visita, até ~13h15).','Piazza della Signoria e a Loggia dei Lanzi, bem na saída do Uffizi — estátuas a céu aberto (Perseu de Cellini, Rapto das Sabinas), ~20-30 min.','Almoço no Mercato Centrale por volta das 14h00 (~€15–20/pessoa).','Compras: Apple Store, Sephora, Kiko Milano e Giunti Odeon — todos a poucos minutos a pé um do outro.'],noite:['Volta: trem até Poggibonsi (1h10–1h15) + carro (~15 min).','Jantar leve em Castellina.']},
+      {n:4,t:'Florença + feiras',wake:'7h15',leave:'7h45',manha:['Carro até Poggibonsi (~15 min).','Trem das 08h42, chega 09h52 em Firenze S.M.N.','Domingo é o 2º do mês — dia certo do Mercato di Santo Spirito (antiguidades e roupas vintage, Piazza Santo Spirito, 9h–19h).'],tarde:['A caminho da Ponte Vecchio: Mercato Nuovo, pra ver o javali de bronze (Il Porcellino) — tradição de esfregar o focinho pra sorte.','Ponte Vecchio e passeio pelo Oltrarno, por volta das 14h00.','Se sobrar tempo: Palazzo Pitti e Giardino di Boboli, ali do lado.','Sem compras ainda — deixem os eletrônicos para o fim do dia, assim não carregam a caixa pela cidade a tarde toda.'],noite:['Eletrônicos por volta das 18h00 — MediaWorld (Novoli, tram T2) ou Unieuro (Sesto Fiorentino, trem regional): Nintendo Switch 2 €468 e PlayStation 5 €649,99 nas duas, mais uma mala nova de ~23 kg (a partir de ~€35–40).','As duas fecham às 20h — cheguem até ~19h para não ficar em cima da hora. Se não der tempo, o Dia 8 é plano B.','Depois: trem de volta até Poggibonsi (1h10–1h15) + carro (~15 min) — chegada um pouco mais tarde que nos outros dias.']},
+      {n:5,t:'San Gimignano → Volterra',wake:'7h15',leave:'7h45',manha:['Carro até San Gimignano: ~18 km, ~20-25 min, ~€2 (estimativa — o Airbnb fica mais perto de San Gimignano do que do centro de Castellina, confirmar rota exata no GPS) — chegada por volta das 8h10.','Torres medievais, Piazza della Cisterna, gelato na Dondoli.'],tarde:['Saída para Volterra por volta das 12h00: 30 km, 40 min, ~€4 — chegada ~12h40.','Piazza dei Priori, artesanato em alabastro.'],noite:['Volta a Castellina: 55 km, 1h, saindo ~17h00, chegada ~18h00.','Jantar em Castellina.']},
+      {n:6,t:'Siena → Montalcino/Tiezzi → Val d\'Orcia',wake:'7h00',leave:'8h00',manha:['Carro até Siena: ~27 km, ~30-35 min, ~€3 (estimativa — o Airbnb fica um pouco mais longe de Siena do que o centro de Castellina, confirmar rota exata no GPS) — chegada por volta das 8h35.','Siena com calma até ~12h30 (~4h): Piazza del Campo, Duomo, Basilica di San Domenico.'],tarde:['Almoço em Siena, ~12h30–13h30.','Saída para Montalcino às 13h30: ~45 km, ~50 min — chegada ~14h20.','Tempo livre em Montalcino (Fortezza, centro histórico) até 15h30.','15h30–17h00: degustação na Vinícola Tiezzi (confirmar dia/horário com a família com antecedência).'],noite:['Carro até Pienza (Val d\'Orcia) às 17h00: ~15 min — chegada ~17h15.','Pienza ao entardecer: Piazza Pio II e a vista do vale com o pôr do sol (~18h15 em outubro).','Volta direto a Castellina às 18h15: ~1h25 — chegada ~19h40, jantar em casa.']},
+      {n:7,t:'Pisa → Livorno',wake:'8h00',leave:'8h30',manha:['Carro até Pisa: 103 km, 1h29, ~€12 — saindo às 8h30, chegada por volta das 10h00.','Torre di Pisa reservada para as 10h45 — só o ingresso da Torre, €20/pessoa (já comprado).','O Duomo entra de graça junto com o ingresso da Torre, sem horário marcado.'],tarde:['Depois da Torre (~30 min de visita), saída para Livorno por volta das 12h30: 20 km, 25 min, ~€2 — chegada ~12h55.','Almoço em Livorno por volta das 13h00–14h30: peixe fresco no Mercato del Pesce ou num bar/mercado local perto da Terrazza Mascagni (~€15–20/pessoa).','Terrazza Mascagni — calçadão com piso em xadrez preto e branco.','Venezia Nuova — bairro dos canais, tipo uma "pequena Veneza", com passeio a pé pelas pontes (ou passeio de barco, se quiserem).'],noite:['Volta a Castellina: saindo por volta das 17h00, 120 km, 1h45, ~€14 — chegada ~18h45.','Jantar leve em casa.']},
+      {n:8,t:'Dia livre — decidir na hora',wake:'Livre',leave:'Livre',manha:['Sem plano fixo pela manhã — decidam pelo clima e pelo ânimo do grupo.'],tarde:['Plano B eletrônicos: se não deu tempo de comprar os consoles e a mala nova no Dia 4, hoje é a folga pra voltar — MediaWorld (Novoli) ou Unieuro (Sesto Fiorentino), mesmos preços e trajetos de trem/tram de antes.','Outras opções para o dia: mais um dia em Florença (Palazzo Pitti, Boboli, Piazzale Michelangelo, com o passeio de Ferrari opcional saindo de lá, tuscanytestdrive.com a partir de €150; ou subir o Campanile di Giotto, €20, se não deu tempo antes), ou San Gimignano/Volterra de novo sem pressa.'],noite:['Sugestão: jantar em Siena — o passeio noturno que não coube no Dia 5, com a Piazza del Campo iluminada. Volta a Castellina (20 km, 25-30 min).','Última noite na Toscana — malas.']},
+      {n:9,t:'Toscana → Roma (pelo litoral)',wake:'8h00',leave:'9h30',manha:['Checkout do Airbnb, últimas malas.','Saída às 9h30 pela estrada do litoral (via Grosseto): SS223 + Via Aurelia (SS1) — ~3h27 de estrada ao todo, só ~40 min a mais que a rota direta (2h47).','Castiglione della Pescaia, por volta das 11h00 (~50 min): portinho de pesca charmoso, centro histórico numa colina de frente pro mar, canal cheio de barcos.','Talamone, por volta das 12h15 (~35 min): vilarejo fortificado num promontório rochoso, castelinho medieval, vista panorâmica do mar.'],tarde:['Orbetello, por volta das 13h15: almoço de frutos do mar, e com tempo de sobra, esticar até Porto Santo Stefano no Monte Argentario — marina, penhascos, vistas (~1h45 ao todo).','Castello di Santa Severa, por volta das 15h45 (~45 min): castelo medieval direto na praia — ótimo pra foto e uma caminhada na areia.','Chegada no Airbnb (Aurelio) por volta das 17h30, fim da tarde — check-in e um tempo pra descansar da estrada.'],noite:['Até Trastevere: metrô até Valle Aurelia + trem FL3 direto até a Estação Trastevere (~6 min de trem) + ~10 min a pé até a Piazza Santa Maria in Trastevere — uns 30 min ao todo. Saída por volta das 19h00.','Jantar em trattoria por volta das 19h30–21h00 (~€20–25/pessoa).','Depois do jantar: Fontana di Trevi à noite — atravessando o Ponte Sisto/Garibaldi até o centro histórico, ~20-25 min a pé de Trastevere. Bem mais vazia e ainda mais bonita iluminada.','Desde fev/2026 o perímetro interno é pago: €2/pessoa, das 9h às 22h, em fontanaditrevi.roma.it. Depois das 22h dá pra ver de graça, mas só de fora da cerca.']},
+      {n:10,t:'Roma',wake:'7h00',leave:'7h30',manha:['Vaticano por fora, às 8h00 (~15-20 min de metrô/ônibus do Airbnb — não vamos entrar em nada, só ver de fora).','Piazza San Pietro, fachada da Basílica de São Pedro; se sobrar tempo, Castel Sant\'Angelo e a Ponte Sant\'Angelo ali perto.','Saída para o Coliseu por volta das 9h45: Metrô A até Ottaviano → troca em Termini → Linha B até Colosseo (~30-40 min).','Chegada por volta das 11h15 — Ricardo e Erika (que já foram ao Coliseu antes) ficam no Rione Monti; Isabella e Thiago entram com o ingresso das 11h45.','11h45: Coliseu, Fórum Romano e Palatino (conferir se o ingresso inclui os três).'],tarde:['Reencontro de todo mundo por volta das 15h00 (fim da visita ao Coliseu/Fórum/Palatino).','Almoço por volta das 15h00–16h00.','Tempo livre até 17h45: Piazza Navona, Campo de\' Fiori, ou só descansar.'],noite:['18h00: Pantheon — €7/pessoa, reservado com antecedência em portale.museiitaliani.it (fila física pode passar de 1h, melhor evitar).','A Fontana di Trevi já foi vista na noite do dia 16 — se quiserem rever à luz do dia, é opcional.','Compras na La Rinascente (2 min da Trevi) por volta das 19h00.','Piazza di Spagna ao entardecer, por volta das 19h30 — a estação "Spagna" é da própria Linha A, direto até Baldo degli Ubaldi/Cornelia, sem troca de linha (~20-25 min).']},
+      {n:11,t:'Partida',wake:'3h15',leave:'3h45',manha:['Pegar o carro estacionado, dirigir até o FCO (~30–40 min sem trânsito, ~€4), devolver na locadora.','Voo 07h35.'],tarde:['Em voo/conexão em Madri.'],noite:['Chegada a São Paulo 20h20 (horário local).']}
+    ]
+  },
+  D:{
+    label:'Plano D — Val d\'Orcia e Pisa trocados',
+    desc:'Os mesmos lugares da Opção A, com Montalcino/Val d\'Orcia depois de Foiano/Trasimeno. Florença (dias 10 e 11/10) e Pisa (dia 14/10) já têm ingressos comprados e ficam fixos em todas as opções.',
+    path:['fco','castellina','sangimignano','volterra','florence','foiano','trasimeno','siena','montalcino','pienza','pisa','livorno','castellina','castiglione_pescaia','talamone','orbetello','santa_severa','roma','fco'],
+    days:[
+      {n:1,t:'Chegada',wake:'—',leave:'—',manha:['07/10 (quarta): embarque em São Paulo (GRU), voo BA246 às 15h30.'],tarde:['08/10 (quinta): chegada em Roma às 14h25 (voo BA550).','Retirada do carro alugado no aeroporto.','Estrada até Castellina in Chianti — ~230 km, 2h40–3h, ~€28 de combustível.'],noite:['Chegada a Castellina in Chianti, por volta das 17h30.','Compras no mercado local + jantar leve em casa.']},
+      {n:2,t:'San Gimignano → Volterra',wake:'7h15',leave:'7h45',manha:['Carro até San Gimignano: ~18 km, ~20-25 min, ~€2 (estimativa — o Airbnb fica mais perto de San Gimignano do que do centro de Castellina, confirmar rota exata no GPS) — chegada por volta das 8h10.','Torres medievais, Piazza della Cisterna, gelato na Dondoli.'],tarde:['Saída para Volterra por volta das 12h00: 30 km, 40 min, ~€4 — chegada ~12h40.','Piazza dei Priori, artesanato em alabastro.'],noite:['Volta a Castellina: 55 km, 1h, saindo ~17h00, chegada ~18h00.','Jantar em Castellina.']},
+      {n:3,t:'Florença — museus (ingressos já comprados)',wake:'5h15',leave:'5h45',manha:['Carro até Poggibonsi (~15 min) e deixar estacionado na estação.','Trem das 06h06, chega 07h23 em Firenze S.M.N.','Accademia (David) às 8h15 — ingresso já reservado.','Janela livre até 11h15: Duomo (Cattedrale di Santa Maria del Fiore) por fora e Battistero di San Giovanni (as famosas Portas do Paraíso) — os dois ficam a caminho do centro, perto da Accademia.','Opcional, pra decidir na hora: subir o Campanile di Giotto (414 degraus, ~1h, €20/pessoa, duomo.firenze.it) — só dá pra fazer sem horário marcado com o Brunelleschi Pass (mais completo, inclui a Cúpula); o Giotto Pass avulso exige reserva de horário.'],tarde:['Uffizi às 11h15 — ingresso já reservado (~2h de visita, até ~13h15).','Piazza della Signoria e a Loggia dei Lanzi, bem na saída do Uffizi — estátuas a céu aberto (Perseu de Cellini, Rapto das Sabinas), ~20-30 min.','Almoço no Mercato Centrale por volta das 14h00 (~€15–20/pessoa).','Compras: Apple Store, Sephora, Kiko Milano e Giunti Odeon — todos a poucos minutos a pé um do outro.'],noite:['Volta: trem até Poggibonsi (1h10–1h15) + carro (~15 min).','Jantar leve em Castellina.']},
+      {n:4,t:'Florença + feiras',wake:'7h15',leave:'7h45',manha:['Carro até Poggibonsi (~15 min).','Trem das 08h42, chega 09h52 em Firenze S.M.N.','Domingo é o 2º do mês — dia certo do Mercato di Santo Spirito (antiguidades e roupas vintage, Piazza Santo Spirito, 9h–19h).'],tarde:['A caminho da Ponte Vecchio: Mercato Nuovo, pra ver o javali de bronze (Il Porcellino) — tradição de esfregar o focinho pra sorte.','Ponte Vecchio e passeio pelo Oltrarno, por volta das 14h00.','Se sobrar tempo: Palazzo Pitti e Giardino di Boboli, ali do lado.','Sem compras ainda — deixem os eletrônicos para o fim do dia, assim não carregam a caixa pela cidade a tarde toda.'],noite:['Eletrônicos por volta das 18h00 — MediaWorld (Novoli, tram T2) ou Unieuro (Sesto Fiorentino, trem regional): Nintendo Switch 2 €468 e PlayStation 5 €649,99 nas duas, mais uma mala nova de ~23 kg (a partir de ~€35–40).','As duas fecham às 20h — cheguem até ~19h para não ficar em cima da hora. Se não der tempo, o Dia 8 é plano B.','Depois: trem de volta até Poggibonsi (1h10–1h15) + carro (~15 min) — chegada um pouco mais tarde que nos outros dias.']},
+      {n:5,t:'Foiano della Chiana → Lago Trasimeno',wake:'7h15',leave:'8h15',manha:['Carro até Foiano della Chiana: 60 km, 55 min–1h, ~€7 — chegada por volta das 9h15.','Piazza Cavour, almoço leve por volta das 12h00–13h00 (~€12–15/pessoa).'],tarde:['Saída para o Lago Trasimeno por volta das 13h30: 30 km, 35 min, ~€4 — chegada ~14h05.','Passeio à beira do lago em Passignano.','Se der tempo: Cortona fica ~20 min do lago — Piazza della Repubblica, cenário de "Sob o Sol da Toscana".'],noite:['Volta a Castellina: saindo ~17h30, 90 km, 1h20, ~€11 — chegada ~18h50.']},
+      {n:6,t:'Siena → Montalcino/Tiezzi → Val d\'Orcia',wake:'7h00',leave:'8h00',manha:['Carro até Siena: ~27 km, ~30-35 min, ~€3 (estimativa — o Airbnb fica um pouco mais longe de Siena do que o centro de Castellina, confirmar rota exata no GPS) — chegada por volta das 8h35.','Siena com calma até ~12h30 (~4h): Piazza del Campo, Duomo, Basilica di San Domenico.'],tarde:['Almoço em Siena, ~12h30–13h30.','Saída para Montalcino às 13h30: ~45 km, ~50 min — chegada ~14h20.','Tempo livre em Montalcino (Fortezza, centro histórico) até 15h30.','15h30–17h00: degustação na Vinícola Tiezzi (confirmar dia/horário com a família com antecedência).'],noite:['Carro até Pienza (Val d\'Orcia) às 17h00: ~15 min — chegada ~17h15.','Pienza ao entardecer: Piazza Pio II e a vista do vale com o pôr do sol (~18h15 em outubro).','Volta direto a Castellina às 18h15: ~1h25 — chegada ~19h40, jantar em casa.']},
+      {n:7,t:'Pisa → Livorno',wake:'8h00',leave:'8h30',manha:['Carro até Pisa: 103 km, 1h29, ~€12 — saindo às 8h30, chegada por volta das 10h00.','Torre di Pisa reservada para as 10h45 — só o ingresso da Torre, €20/pessoa (já comprado).','O Duomo entra de graça junto com o ingresso da Torre, sem horário marcado.'],tarde:['Depois da Torre (~30 min de visita), saída para Livorno por volta das 12h30: 20 km, 25 min, ~€2 — chegada ~12h55.','Almoço em Livorno por volta das 13h00–14h30: peixe fresco no Mercato del Pesce ou num bar/mercado local perto da Terrazza Mascagni (~€15–20/pessoa).','Terrazza Mascagni — calçadão com piso em xadrez preto e branco.','Venezia Nuova — bairro dos canais, tipo uma "pequena Veneza", com passeio a pé pelas pontes (ou passeio de barco, se quiserem).'],noite:['Volta a Castellina: saindo por volta das 17h00, 120 km, 1h45, ~€14 — chegada ~18h45.','Jantar leve em casa.']},
+      {n:8,t:'Dia livre — decidir na hora',wake:'Livre',leave:'Livre',manha:['Sem plano fixo pela manhã — decidam pelo clima e pelo ânimo do grupo.'],tarde:['Plano B eletrônicos: se não deu tempo de comprar os consoles e a mala nova no Dia 4, hoje é a folga pra voltar — MediaWorld (Novoli) ou Unieuro (Sesto Fiorentino), mesmos preços e trajetos de trem/tram de antes.','Outras opções para o dia: mais um dia em Florença (Palazzo Pitti, Boboli, Piazzale Michelangelo, com o passeio de Ferrari opcional saindo de lá, tuscanytestdrive.com a partir de €150; ou subir o Campanile di Giotto, €20, se não deu tempo antes), ou San Gimignano/Volterra de novo sem pressa.'],noite:['Sugestão: jantar em Siena — o passeio noturno que não coube no Dia 5, com a Piazza del Campo iluminada. Volta a Castellina (20 km, 25-30 min).','Última noite na Toscana — malas.']},
+      {n:9,t:'Toscana → Roma (pelo litoral)',wake:'8h00',leave:'9h30',manha:['Checkout do Airbnb, últimas malas.','Saída às 9h30 pela estrada do litoral (via Grosseto): SS223 + Via Aurelia (SS1) — ~3h27 de estrada ao todo, só ~40 min a mais que a rota direta (2h47).','Castiglione della Pescaia, por volta das 11h00 (~50 min): portinho de pesca charmoso, centro histórico numa colina de frente pro mar, canal cheio de barcos.','Talamone, por volta das 12h15 (~35 min): vilarejo fortificado num promontório rochoso, castelinho medieval, vista panorâmica do mar.'],tarde:['Orbetello, por volta das 13h15: almoço de frutos do mar, e com tempo de sobra, esticar até Porto Santo Stefano no Monte Argentario — marina, penhascos, vistas (~1h45 ao todo).','Castello di Santa Severa, por volta das 15h45 (~45 min): castelo medieval direto na praia — ótimo pra foto e uma caminhada na areia.','Chegada no Airbnb (Aurelio) por volta das 17h30, fim da tarde — check-in e um tempo pra descansar da estrada.'],noite:['Até Trastevere: metrô até Valle Aurelia + trem FL3 direto até a Estação Trastevere (~6 min de trem) + ~10 min a pé até a Piazza Santa Maria in Trastevere — uns 30 min ao todo. Saída por volta das 19h00.','Jantar em trattoria por volta das 19h30–21h00 (~€20–25/pessoa).','Depois do jantar: Fontana di Trevi à noite — atravessando o Ponte Sisto/Garibaldi até o centro histórico, ~20-25 min a pé de Trastevere. Bem mais vazia e ainda mais bonita iluminada.','Desde fev/2026 o perímetro interno é pago: €2/pessoa, das 9h às 22h, em fontanaditrevi.roma.it. Depois das 22h dá pra ver de graça, mas só de fora da cerca.']},
+      {n:10,t:'Roma',wake:'7h00',leave:'7h30',manha:['Vaticano por fora, às 8h00 (~15-20 min de metrô/ônibus do Airbnb — não vamos entrar em nada, só ver de fora).','Piazza San Pietro, fachada da Basílica de São Pedro; se sobrar tempo, Castel Sant\'Angelo e a Ponte Sant\'Angelo ali perto.','Saída para o Coliseu por volta das 9h45: Metrô A até Ottaviano → troca em Termini → Linha B até Colosseo (~30-40 min).','Chegada por volta das 11h15 — Ricardo e Erika (que já foram ao Coliseu antes) ficam no Rione Monti; Isabella e Thiago entram com o ingresso das 11h45.','11h45: Coliseu, Fórum Romano e Palatino (conferir se o ingresso inclui os três).'],tarde:['Reencontro de todo mundo por volta das 15h00 (fim da visita ao Coliseu/Fórum/Palatino).','Almoço por volta das 15h00–16h00.','Tempo livre até 17h45: Piazza Navona, Campo de\' Fiori, ou só descansar.'],noite:['18h00: Pantheon — €7/pessoa, reservado com antecedência em portale.museiitaliani.it (fila física pode passar de 1h, melhor evitar).','A Fontana di Trevi já foi vista na noite do dia 16 — se quiserem rever à luz do dia, é opcional.','Compras na La Rinascente (2 min da Trevi) por volta das 19h00.','Piazza di Spagna ao entardecer, por volta das 19h30 — a estação "Spagna" é da própria Linha A, direto até Baldo degli Ubaldi/Cornelia, sem troca de linha (~20-25 min).']},
+      {n:11,t:'Partida',wake:'3h15',leave:'3h45',manha:['Pegar o carro estacionado, dirigir até o FCO (~30–40 min sem trânsito, ~€4), devolver na locadora.','Voo 07h35.'],tarde:['Em voo/conexão em Madri.'],noite:['Chegada a São Paulo 20h20 (horário local).']}
+    ]
+  }
+};
+
+const DATE_MAP = {1:'07–08/10',2:'09/10',3:'10/10',4:'11/10',5:'12/10',6:'13/10',7:'14/10',8:'15/10',9:'16/10',10:'17/10',11:'18/10'};
+
+const LOC_APPEARANCES = {
+  fco:['A-1 e 11','B-1 e 11','C-1 e 11','D-1 e 11'],
+  castellina:['A-base, dias 1 a 9','B-base, dias 1 a 9','C-base, dias 1 a 9','D-base, dias 1 a 9'],
+  florence:['A-3 e 4','B-3 e 4','C-3 e 4','D-3 e 4'],
+  siena:['A-5','B-2','C-6','D-6'],
+  sangimignano:['A-2','B-6','C-5','D-2'],
+  volterra:['A-2','B-6','C-5','D-2'],
+  montalcino:['A-5','B-2','C-6','D-6'],
+  pienza:['A-5','B-2','C-6','D-6'],
+  pisa:['A-7','B-7','C-7','D-7'],
+  livorno:['A-7','B-7','C-7','D-7'],
+  foiano:['A-6','B-5','C-2','D-5'],
+  cortona:['A-6 (opcional)','B-5 (opcional)','C-2 (opcional)','D-5 (opcional)'],
+  trasimeno:['A-6','B-5','C-2','D-5'],
+  castiglione_pescaia:['A-9','B-9','C-9','D-9'],
+  talamone:['A-9','B-9','C-9','D-9'],
+  orbetello:['A-9','B-9','C-9','D-9'],
+  santa_severa:['A-9','B-9','C-9','D-9'],
+  roma:['A-9,10,11','B-9,10,11','C-9,10,11','D-9,10,11']
+};
+
+/* ================= OPTION TABS ================= */
+const tabsEl = document.getElementById('option-tabs');
+let currentOption = 'A';
+Object.keys(OPTIONS).forEach(key=>{
+  const btn = document.createElement('button');
+  btn.className = 'option-tab' + (key===currentOption?' active':'');
+  btn.dataset.opt = key;
+  btn.innerHTML = `<span class="letter">${key}</span><span class="name">${OPTIONS[key].label}</span>`;
+  btn.addEventListener('click', ()=>selectOption(key));
+  tabsEl.appendChild(btn);
+});
+
+/* ================= LEAFLET MAP ================= */
+const map = L.map('leaflet-map', {scrollWheelZoom:true, zoomControl:true});
+map.fitBounds(REGION_BOUNDS);
+
+const TILE_PROVIDERS = [
+  { url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', opts: { subdomains: ['a','b','c','d'], attribution: '&copy; OpenStreetMap contributors &copy; CARTO', maxZoom: 19 } },
+  { url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', opts: { subdomains: ['a','b','c'], attribution: '&copy; OpenStreetMap contributors', maxZoom: 19 } },
+  { url: 'https://tile.openstreetmap.de/{z}/{x}/{y}.png', opts: { attribution: '&copy; OpenStreetMap contributors', maxZoom: 19 } },
+  { url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', opts: { subdomains: ['a','b','c','d'], attribution: '&copy; OpenStreetMap contributors &copy; CARTO', maxZoom: 19 } }
+];
+let tileProviderIndex = 0;
+let activeTileLayer = null;
+function loadTileProvider(i){
+  if(activeTileLayer){ map.removeLayer(activeTileLayer); }
+  if(i >= TILE_PROVIDERS.length){
+    document.getElementById('leaflet-map').insertAdjacentHTML('afterbegin',
+      '<div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; padding:24px; background:#E7DEC2; font-family:Work Sans, sans-serif; font-size:13px; color:#5B5347; z-index:1000;">Não consegui carregar os mapas (provedores de tiles indisponíveis nessa rede/navegador).<br>Tente recarregar a página, checar a conexão, ou abrir o arquivo por um servidor local em vez de abrir direto (duplo-clique).</div>');
+    return;
+  }
+  const p = TILE_PROVIDERS[i];
+  activeTileLayer = L.tileLayer(p.url, p.opts);
+  activeTileLayer.on('tileerror', ()=>{ loadTileProvider(i+1); });
+  activeTileLayer.addTo(map);
+}
+loadTileProvider(0);
+
+/* Leaflet sometimes measures the container before layout settles — force a resize check */
+setTimeout(()=>{ map.invalidateSize(); map.fitBounds(REGION_BOUNDS); }, 250);
+window.addEventListener('resize', ()=> map.invalidateSize());
+
+const detailLayer = L.layerGroup();
+const markerRefs = {};
+
+function makeMarker(key, place){
+  const isMain = place.level === 'main';
+  const marker = L.circleMarker([place.lat, place.lng], {
+    radius: isMain ? 9 : 6,
+    color: '#fff',
+    weight: isMain ? 1.6 : 1,
+    fillColor: CATS[place.cat].color,
+    fillOpacity: 0.95,
+    className: 'map-marker'
+  });
+  marker.bindTooltip(place.name, {
+    permanent: true,
+    direction: 'right',
+    className: 'map-label',
+    offset: [isMain ? 8 : 5, 0]
+  });
+  marker.on('click', ()=> showLocation(key));
+  marker.placeKey = key;
+  markerRefs[key] = marker;
+  return marker;
+}
+
+Object.entries(PLACES).forEach(([key, place])=>{
+  const marker = makeMarker(key, place);
+  if(place.level === 'main'){
+    marker.addTo(map);
+  } else {
+    marker.addTo(detailLayer);
+  }
+});
+
+function updateDetailVisibility(){
+  if(map.getZoom() >= 13){ if(!map.hasLayer(detailLayer)) detailLayer.addTo(map); }
+  else { if(map.hasLayer(detailLayer)) map.removeLayer(detailLayer); }
+}
+map.on('zoomend', updateDetailVisibility);
+updateDetailVisibility();
+
+function flyToPlace(key){
+  const t = ZOOM_TARGETS[key];
+  const sel = document.getElementById('zoom-select');
+  if(!t){ map.flyToBounds(REGION_BOUNDS, {duration:0.6}); if(sel) sel.value = 'region'; return; }
+  map.flyTo([t[0], t[1]], t[2], {duration:0.8});
+  if(sel) sel.value = key;
+}
+document.getElementById('zoom-select').addEventListener('change', (e)=> flyToPlace(e.target.value));
+
+/* ================= ROUTE LINE ================= */
+const routeLine = L.polyline([], {color:'#9C4A24', weight:3, dashArray:'7,6', opacity:0.9}).addTo(map);
+
+function selectOption(key){
+  currentOption = key;
+  document.querySelectorAll('.option-tab').forEach(b=>b.classList.toggle('active', b.dataset.opt===key));
+  const coords = OPTIONS[key].path.map(k=>[PLACES[k].lat, PLACES[k].lng]);
+  routeLine.setLatLngs(coords);
+  const visited = new Set(OPTIONS[key].path);
+  Object.entries(markerRefs).forEach(([k, marker])=>{
+    if(PLACES[k].level !== 'main') return;
+    const isVisited = visited.has(k);
+    marker.setStyle({fillOpacity: isVisited ? 0.95 : 0.25, opacity: isVisited ? 1 : 0.3});
+  });
+  renderDayList(key);
+  buildDateMenu(key);
+}
+
+/* ================= DATAS NAV ================= */
+function buildDateMenu(key){
+  const sel = document.getElementById('nav-date-select');
+  if(!sel) return;
+  const days = OPTIONS[key].days;
+  let html = '<option value="" disabled selected>Datas</option>';
+  days.forEach(day=>{
+    if(day.n === 1){
+      html += `<option value="1">07/10 — Embarque em São Paulo</option>`;
+      html += `<option value="1">08/10 — ${day.t}</option>`;
+    } else {
+      html += `<option value="${day.n}">${DATE_MAP[day.n]} — ${day.t}</option>`;
+    }
+  });
+  sel.innerHTML = html;
+}
+function jumpToDate(n){
+  const el = document.getElementById('day-row-' + n);
+  if(!el) return;
+  const topbar = document.querySelector('.topbar');
+  const offset = (topbar ? topbar.offsetHeight : 0) + 18;
+  const targetY = el.getBoundingClientRect().top + window.pageYOffset - offset;
+  window.scrollTo({top: Math.max(targetY, 0), behavior:'smooth'});
+  el.classList.remove('flash-highlight');
+  void el.offsetWidth;
+  el.classList.add('flash-highlight');
+  setTimeout(()=> el.classList.remove('flash-highlight'), 1700);
+}
+document.getElementById('nav-date-select').addEventListener('change', (e)=>{
+  const n = parseInt(e.target.value, 10);
+  if(n) jumpToDate(n);
+  e.target.selectedIndex = 0;
+});
+
+/* bold every number-ish token: times, km, min, euros, reais, percentages, ranges */
+function boldNums(text){
+  return text.replace(/(~?R\$\s?\d[\d.,]*|~?€\s?\d[\d.,]*(?:[–-]\d[\d.,]*)?(?:\/pessoa)?|\d[\d:.,]*(?:h\d{0,2})?(?:\s?(?:km|min|°C))?(?:\s?[–-]\s?~?\d[\d:.,]*(?:h\d{0,2})?(?:\s?(?:km|min))?)?)/g, '<b>$1</b>');
+}
+
+function renderDayList(key){
+  const opt = OPTIONS[key];
+  const panel = document.getElementById('side-panel');
+  panel.innerHTML = `
+    <h3>Opção ${key} — ${opt.label}</h3>
+    <p class="opt-desc">${boldNums(opt.desc)}</p>
+    <div class="day-rows">
+    ${opt.days.map(day=>`
+      <div class="day-row" id="day-row-${day.n}">
+        <div class="d-num">${DATE_MAP[day.n]}</div>
+        <h5>${day.t}</h5>
+        ${day.wake==='—' ? '' : day.wake==='Livre' ? `<div class="day-times">☕ Dia livre — sem hora marcada</div>` : day.wake2 ? `<div class="day-times">🚄 Rápida: acordar <b>${day.wake}</b> · sair <b>${day.leave}</b></div><div class="day-times comfy">🛋️ Confortável: acordar <b>${day.wake2}</b> · sair <b>${day.leave2}</b></div>` : `<div class="day-times">⏰ Acordar <b>${day.wake}</b> · Sair de casa <b>${day.leave}</b></div>`}
+        <div class="periods">
+          <div class="period"><div class="label">Manhã</div>${day.manha.map(l=>`<p>${boldNums(l)}</p>`).join('')}</div>
+          <div class="period"><div class="label">Tarde</div>${day.tarde.map(l=>`<p>${boldNums(l)}</p>`).join('')}</div>
+          <div class="period"><div class="label">Noite</div>${day.noite.map(l=>`<p>${boldNums(l)}</p>`).join('')}</div>
+        </div>
+      </div>
+    `).join('')}
+    </div>
+  `;
+}
+
+function showLocation(key){
+  const loc = PLACES[key];
+  const isSub = loc.level !== 'main';
+  const panel = document.getElementById('side-panel');
+  let entriesHTML = '';
+  if(isSub){
+    entriesHTML = `<div class="loc-entry"><p>${loc.note}</p></div>`;
+  } else if(loc.alt){
+    entriesHTML = `<div class="loc-entry"><span class="opt-tag">Alternativa</span><p>Não é um dia fixo do roteiro — encaixem se quiserem, no lugar ou além da Vinícola Tiezzi.</p></div>`;
+  } else {
+    const appearances = LOC_APPEARANCES[key] || [];
+    entriesHTML = appearances.map(a=>{
+      const [opt, day] = a.split('-');
+      return `<div class="loc-entry"><span class="opt-tag">Opção ${opt} · Dia ${day}</span></div>`;
+    }).join('');
+  }
+  const zoomBtn = (!isSub && loc.fly) ? `<button class="zoom-into" onclick="flyToPlace('${loc.fly}')">🔍 Ver os pontos exatos</button>` : '';
+  panel.innerHTML = `
+    <div class="back-link" id="back-to-days">← voltar ao roteiro da opção ${currentOption}</div>
+    <div class="loc-detail">
+      <span class="cat-badge" style="background:${CATS[loc.cat].color}">${CATS[loc.cat].label}</span>
+      <h3>${loc.name}</h3>
+      <p class="blurb">${boldNums(loc.blurb)}</p>
+      ${entriesHTML}
+      ${zoomBtn}
+      <p class="hint">Clique em outro ponto do mapa para comparar, ou volte ao roteiro.</p>
+    </div>
+  `;
+  document.getElementById('back-to-days').addEventListener('click', ()=>renderDayList(currentOption));
+}
+
+selectOption('A');
+
+
+/* ================= SIDEBAR ================= */
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+function openSidebar(){ sidebar.classList.add('open'); overlay.classList.add('show'); }
+function closeSidebar(){ sidebar.classList.remove('open'); overlay.classList.remove('show'); }
+function openSidebarTo(itemId){
+  openSidebar();
+  document.querySelectorAll('.acc-item').forEach(it=>it.classList.toggle('open', it.id===itemId));
+  const target = document.getElementById(itemId);
+  if(target) setTimeout(()=> target.scrollIntoView({behavior:'smooth', block:'start'}), 150);
+}
+document.getElementById('menu-btn').addEventListener('click', openSidebar);
+document.getElementById('open-clima').addEventListener('click', ()=> openSidebarTo('acc-clima'));
+document.getElementById('close-sidebar').addEventListener('click', closeSidebar);
+overlay.addEventListener('click', closeSidebar);
+
+document.querySelectorAll('.acc-header').forEach(h=>{
+  h.addEventListener('click', ()=>{
+    const item = h.closest('.acc-item');
+    const wasOpen = item.classList.contains('open');
+    item.classList.toggle('open', !wasOpen);
+  });
+});
+
+/* ================= FAMILIA (dentro da sidebar) ================= */
+const FAMILY = [
+  { name:'Ricardo', color:'#9C4A24',
+    tags:['arte','história','arquitetura','paisagens naturais','vinhos','comida'],
+    favs:['Uffizi e Accademia em Florença — arte e história lado a lado','Siena e San Gimignano — arquitetura medieval','Vinícola no Chianti e vinhas de Montepulciano/Pienza','Val d\'Orcia — as paisagens de Montalcino e Bagni San Filippo'],
+    budget:[['Alimentação',325],['Atrações & extras',60],['Transporte local',45],['Reserva/imprevistos',75],['Apple Watch',480],['Museus (Uffizi+Accademia)',49]],
+    total:1034 },
+  { name:'Erika', color:'#6E2A2A',
+    tags:['moda','maquiagem','vinhos','comida','lugares bonitos'],
+    favs:['La Rinascente e Sephora — moda e maquiagem em Roma e Florença','Mercato Centrale — comida e ambiente','Vinícola no Chianti — degustação','Bagno Vignoni e Val d\'Orcia — paisagens para fotos','Trevi e Piazza di Spagna ao entardecer'],
+    budget:[['Alimentação',325],['Atrações & extras',60],['Transporte local',45],['Reserva/imprevistos',75],['Museus (Uffizi+Accademia)',49]],
+    total:554 },
+  { name:'Isabella', color:'#3B6A6D',
+    tags:['arte','paisagens naturais','arquitetura medieval','literatura','história','comida','vinhos','maquiagem','moda'],
+    favs:['Uffizi e Accademia (tarifa reduzida com documento UE)','San Gimignano, Volterra, Pienza — arquitetura medieval','Bagni San Filippo e Lago Trasimeno — natureza','Officina Santa Maria Novella e La Rinascente — moda/maquiagem','Vinícola no Chianti'],
+    budget:[['Alimentação',325],['Atrações & extras',70],['Transporte local',60],['Reserva/imprevistos',80],['Nintendo Switch 2',500],['Maquiagem/roupas',150],['Museus (tarifa reduzida)',12]],
+    total:1197, note:'Compra o Switch 2 sozinha agora — não depende mais de acerto com o irmão.' },
+  { name:'Thiago', color:'#B78A34',
+    tags:['história','época medieval','comida boa','doces','roupas','perfume','carros'],
+    favs:['San Gimignano, Volterra, Montalcino, Cortona — vilas medievais','Gelato Dondoli em San Gimignano e Mercato Centrale — doces e comida','Estradas do Chianti e Val d\'Orcia — dirigindo pela Toscana','Officina Santa Maria Novella — perfumaria histórica','La Rinascente — roupas'],
+    budget:[['Alimentação',325],['Atrações & extras',70],['Transporte local',60],['Reserva/imprevistos',80],['PlayStation 5',650],['Perfumes/roupas',200],['Museus',49]],
+    total:1434 }
+];
+
+const famContainer = document.getElementById('sidebar-family');
+const maxTotal = Math.max(...FAMILY.map(f=>f.total));
+FAMILY.forEach(f=>{
+  const item = document.createElement('div');
+  item.className = 'acc-item';
+  item.id = 'acc-person-' + f.name.toLowerCase();
+  item.innerHTML = `
+    <button class="acc-header" type="button">
+      <span class="acc-header-left"><span class="init" style="background:${f.color}">${f.name[0]}</span>${f.name}</span>
+      <span class="chevron">›</span>
+    </button>
+    <div class="acc-content">
+      <div class="tags">${f.tags.map(t=>`<span>${t}</span>`).join('')}</div>
+      <div class="fav-title">Prováveis favoritos</div>
+      <ul>${f.favs.map(x=>`<li>${x}</li>`).join('')}</ul>
+      <div class="budget-title">Orçamento estimado (€)</div>
+      <div class="budget-bar"><div style="width:${(f.total/maxTotal*100).toFixed(0)}%; background:${f.color}"></div></div>
+      <div class="budget-list">${f.budget.map(([label,val])=>`<div class="row"><span>${label}</span><span class="mono">€ ${val}</span></div>`).join('')}</div>
+      <div class="budget-total"><span>Total</span><span>€ ${f.total}</span></div>
+      ${f.note? `<p class="hint">${f.note}</p>` : ''}
+    </div>
+  `;
+  item.querySelector('.acc-header').addEventListener('click', ()=>{
+    const wasOpen = item.classList.contains('open');
+    item.classList.toggle('open', !wasOpen);
+  });
+  famContainer.appendChild(item);
+});
+
+document.getElementById('nav-open-voo').addEventListener('click', ()=> openSidebarTo('acc-voo'));
+document.getElementById('nav-open-mala').addEventListener('click', ()=> openSidebarTo('acc-mala'));
+document.getElementById('nav-open-dicas').addEventListener('click', ()=> openSidebarTo('acc-dicas-gerais'));
+document.getElementById('nav-open-deslocamentos').addEventListener('click', ()=> openSidebarTo('acc-deslocamentos'));
+document.querySelectorAll('.who .chip').forEach(chip=>{
+  chip.addEventListener('click', ()=> openSidebarTo('acc-person-' + chip.dataset.person));
+});
+</script>
+
+</body>
+</html>
