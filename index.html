@@ -129,6 +129,14 @@
   .period{background:var(--bg-alt); border-radius:6px; padding:8px 10px;}
   .period .label{font-family:'IBM Plex Mono'; font-size:9.5px; text-transform:uppercase; color:var(--sienna-deep); letter-spacing:0.06em;}
   .period p{font-size:12.2px; margin:4px 0 0; color:var(--ink-soft);}
+  .day-extra{margin-top:10px; padding:10px 12px 12px; border-left:3px solid var(--sienna); background:var(--bg-alt); border-radius:0 6px 6px 0; font-size:12.4px; color:var(--ink-soft);}
+  .day-extra .sub-title{margin-top:0;}
+  .day-extra > p{margin:4px 0 0;}
+  .day-extra b{color:var(--ink);}
+  .day-extra .info-sub{margin-top:8px;}
+  .day-extra .info-sub table{min-width:560px; background:var(--panel);}
+  .day-extra .info-sub td{vertical-align:top; line-height:1.4;}
+  .day-extra .info-sub td.num{white-space:nowrap; text-align:left;}
   .back-link{font-family:'IBM Plex Mono'; font-size:12px; color:var(--sienna-deep); cursor:pointer; display:inline-flex; gap:6px; align-items:center; margin:0 0 14px; padding:6px 0; background:none; border:none;}
   .back-link:hover{text-decoration:underline;}
   .loc-detail .cat-badge{display:inline-block; font-family:'IBM Plex Mono'; font-size:10.5px; text-transform:uppercase; padding:3px 9px; border-radius:3px; color:#fff; margin-bottom:10px;}
@@ -187,6 +195,17 @@
   .clean-list li{position:relative; padding-left:16px; font-size:12.6px; color:var(--ink-soft); line-height:1.45;}
   .clean-list li::before{content:"—"; position:absolute; left:0; color:var(--sienna-deep);}
   .clean-list li b{color:var(--ink);}
+  .park-intro{font-size:12.6px; line-height:1.45; margin:6px 0 0;}
+  .park-list{list-style:none; margin:8px 0 0; padding:0; display:flex; flex-direction:column; gap:10px;}
+  .park-list li{font-size:12.6px; line-height:1.45; padding-bottom:10px; border-bottom:1px dashed var(--line);}
+  .park-list li:last-child{border-bottom:none; padding-bottom:0;}
+  .park-list li > b{color:var(--ink); display:block;}
+  .park-list .gps{display:block; font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--sienna-deep); margin-top:2px; overflow-wrap:anywhere;}
+  .park-list .park-note{display:block; margin-top:3px;}
+  .park-list .park-note b{color:var(--ink);}
+  .steps-list{margin:8px 0 0; padding-left:20px; font-size:12.6px; line-height:1.45;}
+  .steps-list li{margin-bottom:4px;}
+  .steps-list li b{color:var(--ink);}
 
   body.no-scroll{overflow:hidden;}
   :focus-visible{outline:2px solid var(--sienna-deep); outline-offset:2px;}
@@ -479,6 +498,60 @@
           </table>
         </div>
         <p class="hint">Estimativas de estrada — confirmem no Google Maps/Waze no dia, principalmente nas secundárias do Val d'Orcia. Combustível a ~€0,12/km.</p>
+
+        <div class="sub-title">ZTL — a regra de ouro</div>
+        <p class="park-intro">Todo centro histórico do roteiro é <b>ZTL</b> (zona de tráfego limitado) com câmera na entrada. Sem permissão, a multa chega meses depois pela locadora, com taxa extra. Estacionem do lado de fora e entrem a pé.</p>
+
+        <div class="sub-title">Onde estacionar — nome para buscar no GPS</div>
+        <ul class="park-list">
+          <li><b>San Gimignano</b>
+            <span class="gps">📍 Parcheggio P1 Giubileo</span>
+            <span class="gps">📍 Parcheggio P2 Montemaggio</span>
+            <span class="park-note">Fora das muralhas, perto da Porta San Giovanni. O P2 fica mais perto e lota antes. Não passem pela porta de carro.</span></li>
+          <li><b>Volterra</b>
+            <span class="gps">📍 Parcheggio sotterraneo La Dogana</span>
+            <span class="gps">📍 Parcheggio Docciola</span>
+            <span class="park-note">O La Dogana (subterrâneo, sob a Piazza Martiri della Libertà) é o mais perto, mas a entrada fica colada ao início da ZTL: sigam só as placas do estacionamento. O Docciola é gratuito, mas tem uma escadaria até o centro.</span></li>
+          <li><b>Siena</b>
+            <span class="gps">📍 Parcheggio Santa Caterina</span>
+            <span class="park-note">Na Via Esterna di Fontebranda, do lado de fora da muralha. Escadas rolantes (Risalita Santa Caterina) sobem até perto do Duomo.</span></li>
+          <li><b>Pisa</b>
+            <span class="gps">📍 Parcheggio Via Pietrasantina</span>
+            <span class="park-note">Fora das muralhas, ao norte da Piazza dei Miracoli: ~10–15 min a pé até a Torre (há também shuttle). Não sigam placas de "centro".</span></li>
+          <li><b>Cortona</b>
+            <span class="gps">📍 Parcheggio Spirito Santo</span>
+            <span class="park-note">Viale Cesare Battisti. Escadas rolantes sobem até a Piazza Garibaldi. Em 2026 estão em obra de cobertura: se estiverem paradas, há caminho a pé.</span></li>
+          <li><b>Montalcino</b>
+            <span class="gps">📍 Parcheggio Viale Strozzi</span>
+            <span class="park-note">Fora da ZTL, com escadas até o centro. <b>Não subam até o Piazzale Fortezza</b>: desde 2024 ele tem câmera de ZTL.</span></li>
+          <li><b>Foiano della Chiana</b>
+            <span class="gps">📍 Parcheggio Via Indipendenza</span>
+            <span class="park-note">Gratuito e novo (60 vagas), perto da Porta Cortonese. Os estacionamentos ao redor das muralhas são grátis. Não achei confirmação oficial do trajeto em relação à ZTL, então observem as placas na chegada.</span></li>
+          <li><b>Livorno</b>
+            <span class="gps">📍 Parcheggio Moderno</span>
+            <span class="gps">📍 Terrazza Mascagni</span>
+            <span class="park-note">O Moderno (coberto, Via dell'Angiolo, junto à Fortezza Nuova) é acessível sem entrar na ZTL, bom para a Venezia Nuova. Para a Terrazza, há vagas pagas (faixa azul) no Viale Italia, à beira-mar. A ZTL funciona em dias úteis, das 7h30 às 20h.</span></li>
+          <li><b>Florença</b>
+            <span class="gps">📍 Parcheggio Villa Costanza</span>
+            <span class="park-note">Acesso só pela autoestrada A1, com o tram T1 até o centro. Nenhum contato com a ZTL. A comparação carro × trem está no roteiro do dia 10/10.</span></li>
+          <li><b>Roma</b>
+            <span class="gps">📍 Via Ludovico Micara 34</span>
+            <span class="park-note">A ideia é deixar o carro parado perto do Airbnb e circular de metrô: a estação Cornelia (Linha A) fica a ~3 min a pé. Perguntem ao anfitrião onde deixar o carro (garagem ou rua; faixa azul é paga). O trajeto pela Via Aurelia até o Aurelio não cruza as ZTL do centro.</span>
+            <span class="park-note"><b>Valle Aurelia não serve:</b> o estacionamento fecha à meia-noite e só reabre às 5h15, e no dia 18 vocês saem às 3h45.</span>
+            <span class="park-note"><b>Fascia Verde</b> (zona ambiental que cobre boa parte de Roma, incluindo a chegada ao Aurelio): os bloqueios permanentes atingem só carros antigos. Um carro alugado atual (Euro 6) está liberado; só em dias de alerta vermelho de poluição (raros em outubro) o diesel Euro 6 é barrado das 7h30 às 20h30.</span></li>
+        </ul>
+
+        <div class="sub-title">Waze sem ZTL — configurar uma vez</div>
+        <ol class="steps-list">
+          <li>Abram o menu do Waze (☰ ou a foto do perfil) e toquem em <b>Configurações</b>.</li>
+          <li>Entrem em <b>Navegação</b>.</li>
+          <li>Procurem a opção de <b>passes/permissões</b>. O nome muda conforme a versão: algo como "Pedágios e passes"; no app em italiano, "Pedaggi e permessi".</li>
+          <li><b>Não marquem nenhum passe de ZTL.</b> Deixar tudo desmarcado diz ao Waze que vocês não têm autorização. Assim ele desvia quando conhece a zona e avisa quando a rota entra numa.</li>
+        </ol>
+        <p class="hint"><b>A placa na rua vale mais que o GPS.</b> A cobertura de ZTL no Waze depende da comunidade e falha em cidades pequenas. Círculo vermelho com "ZTL" e "Varco attivo" aceso significa não entrar.</p>
+
+        <div class="sub-title">App complementar</div>
+        <p class="park-intro">O <b>ZTL Radar</b> saiu das lojas: foi removido do Google Play em 2018 e não está no App Store. Como segunda camada de alerta ao se aproximar de uma ZTL, há opções atuais: <b>ZTL</b> (iPhone) e <b>ZTL Italia — Zone Alert &amp; Map</b> (Android). Conferir na loja antes de viajar.</p>
       </div>
     </div>
 
@@ -1071,11 +1144,41 @@ const ZOOM_TARGETS = {
 const REGION_BOUNDS = [[41.75,10.25],[43.85,12.55]];
 
 
+/* bloco extra mostrado logo abaixo do dia 10/10 — comparação carro × trem até Florença */
+const FLORENCA_ACESSO = `
+  <div class="day-extra">
+    <div class="sub-title">Como chegar a Florença</div>
+    <p>Duas formas de sair do Airbnb (perto de Poggibonsi) e chegar à Accademia às <b>8h15</b>, o primeiro compromisso do dia. Os tempos são porta a porta, com folga para estacionar e esperar.</p>
+    <div class="info-sub">
+      <table>
+        <thead><tr><th>Opção</th><th>Como funciona</th><th>Tempo aprox.</th><th>Principal característica</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b>Carro</b></td>
+            <td>Airbnb → A1 → <b>Parcheggio Villa Costanza</b> (~40–50 min) → tram T1 até Alamanni-Stazione (~22 min, passa a cada ~6–10 min) → ~15 min a pé</td>
+            <td class="num"><b>1h25–1h45</b><br>sair ~6h30</td>
+            <td>Nenhum contato com a ZTL. Pedágio curto na A1. Estacionamento 24h, então a volta é no horário que quiserem.</td>
+          </tr>
+          <tr>
+            <td><b>Carro + trem</b></td>
+            <td>Airbnb → estação de Poggibonsi (~15 min) + estacionar e comprar bilhetes (~10 min) → trem direto até Firenze S.M.N. (1h05–1h35, conforme o horário) → ~15 min a pé</td>
+            <td class="num"><b>1h45–2h15</b><br>sair ~5h45 (trem 06h06)</td>
+            <td>Ninguém dirige em Florença. Dá para descansar no trem. A ida e a volta dependem da grade de trens, que muda no sábado.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="clean-list">
+      <li><b>Alternativa sem tram:</b> Parcheggio Oltrarno (Piazza della Calza, Porta Romana), ~45–55 min de carro e ~35 min a pé até a Accademia (~2,8 km). Ele fica na borda da ZTL do Oltrarno: o acesso é permitido para quem vai ao estacionamento, mas é preciso informar a placa no caixa. Não é "fora da ZTL" de forma garantida.</li>
+      <li><b>ZTL de Florença no sábado:</b> ativa das 7h30 às 16h. De carro, só até o estacionamento escolhido.</li>
+    </ul>
+  </div>`;
+
 /* cada dia é descrito uma vez; as opções só mudam a ordem (n = posição no roteiro) */
 const DAYS = {
   chegada:{t:'Chegada',wake:'—',leave:'—',manha:['07/10 (quarta): embarque em São Paulo (GRU), voo BA246 às 15h30.'],tarde:['08/10 (quinta): chegada em Roma às 14h25 (voo BA550).','Retirada do carro alugado no aeroporto.','Estrada até Castellina in Chianti — ~230 km, 2h40–3h, ~€28 de combustível.'],noite:['Chegada a Castellina in Chianti, por volta das 17h30.','Compras no mercado local + jantar leve em casa.']},
   sanGimignanoVolterra:{t:'San Gimignano → Volterra',wake:'7h15',leave:'7h45',manha:['Carro até San Gimignano: ~18 km, ~20-25 min, ~€2 (estimativa — o Airbnb fica mais perto de San Gimignano do que do centro de Castellina, confirmar rota exata no GPS) — chegada por volta das 8h10.','Torres medievais, Piazza della Cisterna, gelato na Dondoli.'],tarde:['Saída para Volterra por volta das 12h00: 30 km, 40 min, ~€4 — chegada ~12h40.','Piazza dei Priori, artesanato em alabastro.'],noite:['Volta a Castellina: 55 km, 1h, saindo ~17h00, chegada ~18h00.','Jantar em Castellina.']},
-  florencaMuseus:{t:'Florença — museus (ingressos já comprados)',wake:'5h15',leave:'5h45',manha:['Carro até Poggibonsi (~15 min) e deixar estacionado na estação.','Trem das 06h06, chega 07h23 em Firenze S.M.N.','Accademia (David) às 8h15 — ingresso já reservado.','Janela livre até 11h15: Duomo (Cattedrale di Santa Maria del Fiore) por fora e Battistero di San Giovanni (as famosas Portas do Paraíso) — os dois ficam a caminho do centro, perto da Accademia.','Opcional, pra decidir na hora: subir o Campanile di Giotto (414 degraus, ~1h, €20/pessoa, duomo.firenze.it) — só dá pra fazer sem horário marcado com o Brunelleschi Pass (mais completo, inclui a Cúpula); o Giotto Pass avulso exige reserva de horário.'],tarde:['Uffizi às 11h15 — ingresso já reservado (~2h de visita, até ~13h15).','Piazza della Signoria e a Loggia dei Lanzi, bem na saída do Uffizi — estátuas a céu aberto (Perseu de Cellini, Rapto das Sabinas), ~20-30 min.','Almoço no Mercato Centrale por volta das 14h00 (~€15–20/pessoa).','Compras: Apple Store, Sephora, Kiko Milano e Giunti Odeon — todos a poucos minutos a pé um do outro.'],noite:['Volta: trem até Poggibonsi (1h10–1h15) + carro (~15 min).','Jantar leve em Castellina.']},
+  florencaMuseus:{t:'Florença — museus (ingressos já comprados)',extra:FLORENCA_ACESSO,wake:'5h15',leave:'5h45',manha:['Carro até Poggibonsi (~15 min) e deixar estacionado na estação.','Trem das 06h06, chega 07h23 em Firenze S.M.N.','Accademia (David) às 8h15 — ingresso já reservado.','Janela livre até 11h15: Duomo (Cattedrale di Santa Maria del Fiore) por fora e Battistero di San Giovanni (as famosas Portas do Paraíso) — os dois ficam a caminho do centro, perto da Accademia.','Opcional, pra decidir na hora: subir o Campanile di Giotto (414 degraus, ~1h, €20/pessoa, duomo.firenze.it) — só dá pra fazer sem horário marcado com o Brunelleschi Pass (mais completo, inclui a Cúpula); o Giotto Pass avulso exige reserva de horário.'],tarde:['Uffizi às 11h15 — ingresso já reservado (~2h de visita, até ~13h15).','Piazza della Signoria e a Loggia dei Lanzi, bem na saída do Uffizi — estátuas a céu aberto (Perseu de Cellini, Rapto das Sabinas), ~20-30 min.','Almoço no Mercato Centrale por volta das 14h00 (~€15–20/pessoa).','Compras: Apple Store, Sephora, Kiko Milano e Giunti Odeon — todos a poucos minutos a pé um do outro.'],noite:['Volta: trem até Poggibonsi (1h10–1h15) + carro (~15 min).','Jantar leve em Castellina.']},
   florencaFeiras:{t:'Florença + feiras',wake:'7h15',leave:'7h45',manha:['Carro até Poggibonsi (~15 min).','Trem das 08h42, chega 09h52 em Firenze S.M.N.','Domingo é o 2º do mês — dia certo do Mercato di Santo Spirito (antiguidades e roupas vintage, Piazza Santo Spirito, 9h–19h).'],tarde:['A caminho da Ponte Vecchio: Mercato Nuovo, pra ver o javali de bronze (Il Porcellino) — tradição de esfregar o focinho pra sorte.','Ponte Vecchio e passeio pelo Oltrarno, por volta das 14h00.','Se sobrar tempo: Palazzo Pitti e Giardino di Boboli, ali do lado.','Sem compras ainda — deixem os eletrônicos para o fim do dia, assim não carregam a caixa pela cidade a tarde toda.'],noite:['Eletrônicos por volta das 18h00 — MediaWorld (Novoli, tram T2) ou Unieuro (Sesto Fiorentino, trem regional): Nintendo Switch 2 €468 e PlayStation 5 €649,99 nas duas, mais uma mala nova de ~23 kg (a partir de ~€35–40).','As duas fecham às 20h — cheguem até ~19h para não ficar em cima da hora. Se não der tempo, o Dia 8 é plano B.','Depois: trem de volta até Poggibonsi (1h10–1h15) + carro (~15 min) — chegada um pouco mais tarde que nos outros dias.']},
   sienaValDOrcia:{t:'Siena → Montalcino/Tiezzi → Val d\'Orcia',wake:'7h00',leave:'8h00',manha:['Carro até Siena: ~27 km, ~30-35 min, ~€3 (estimativa — o Airbnb fica um pouco mais longe de Siena do que o centro de Castellina, confirmar rota exata no GPS) — chegada por volta das 8h35.','Siena com calma até ~12h30 (~4h): Piazza del Campo, Duomo, Basilica di San Domenico.'],tarde:['Almoço em Siena, ~12h30–13h30.','Saída para Montalcino às 13h30: ~45 km, ~50 min — chegada ~14h20.','Tempo livre em Montalcino (Fortezza, centro histórico) até 15h30.','15h30–17h00: degustação na Vinícola Tiezzi (confirmar dia/horário com a família com antecedência).'],noite:['Carro até Pienza (Val d\'Orcia) às 17h00: ~15 min — chegada ~17h15.','Pienza ao entardecer: Piazza Pio II e a vista do vale com o pôr do sol (~18h15 em outubro).','Volta direto a Castellina às 18h15: ~1h25 — chegada ~19h40, jantar em casa.']},
   foianoTrasimeno:{t:'Foiano della Chiana → Lago Trasimeno',wake:'7h15',leave:'8h15',manha:['Carro até Foiano della Chiana: 60 km, 55 min–1h, ~€7 — chegada por volta das 9h15.','Piazza Cavour, almoço leve por volta das 12h00–13h00 (~€12–15/pessoa).'],tarde:['Saída para o Lago Trasimeno por volta das 13h30: 30 km, 35 min, ~€4 — chegada ~14h05.','Passeio à beira do lago em Passignano.','Se der tempo: Cortona fica ~20 min do lago — Piazza della Repubblica, cenário de "Sob o Sol da Toscana".'],noite:['Volta a Castellina: saindo ~17h30, 90 km, 1h20, ~€11 — chegada ~18h50.']},
@@ -1341,6 +1444,7 @@ function renderDayList(key){
           <div class="period"><div class="label">Tarde</div>${day.tarde.map(l=>`<p>${boldNums(l)}</p>`).join('')}</div>
           <div class="period"><div class="label">Noite</div>${day.noite.map(l=>`<p>${boldNums(l)}</p>`).join('')}</div>
         </div>
+        ${day.extra || ''}
       </div>
     `).join('')}
     </div>
